@@ -29,6 +29,12 @@ contract CustomERC20 {
         balanceOf[msg.sender] -= _amount;
         balanceOf[_to] += _amount;
         emit Transfer(msg.sender, _to, _amount);
-        returns true;
+        return true;
+    }
+
+    function approve(address _spender, uint256 _amount) public returns (bool) {
+        allowance[msg.sender][_spender] = _amount;
+        emit Approval(msg.sender, _spender, _amount);
+        return true;
     }
 }
