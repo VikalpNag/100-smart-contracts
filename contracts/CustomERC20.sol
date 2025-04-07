@@ -23,4 +23,12 @@ contract CustomERC20 {
         balanceOf[msg.sender] = totalSupply;
         emit Transfer(address(0), msg.sender, totalSupply);
     }
+
+    function transfer(address _to, uint256 _amount) public returns (bool) {
+        require(balanceOf[msg.sender] >= _amount, "Not enough balance");
+        balanceOf[msg.sender] -= _amount;
+        balanceOf[_to] += _amount;
+        emit Transfer(msg.sender, _to, _amount);
+        returns true;
+    }
 }
