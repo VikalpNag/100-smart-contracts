@@ -25,4 +25,20 @@ describe("CustomERC20", function () {
     expect(totalSupply).to.be.equal(expected);
     expect(deployerBalance).to.be.equal(expected);
   });
+
+  //Transferring tokens test
+  it("Returns transfer of token", async () => {
+    const [owner, recipient] = await ethers.getSigners();
+    const decimals = await erc.decimals();
+    const amount = ethers.parseUnits("100", decimals);
+
+    //Transfer token from owner to recipient
+    await erc.transfer(recipient.address, amount);
+
+    const ownerBalance = await erc.balanceOf(owner.address);
+    const recipientBalance = await erc.balanceOf(recipient.address);
+
+    expect(ownerBalance).to.be.equal(ethers.parseUnits("900", decimals));
+    expect(recipientBalance).to.be.equal(amount);
+  });
 });
