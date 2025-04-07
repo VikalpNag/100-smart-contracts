@@ -41,4 +41,37 @@ describe("CustomERC20", function () {
     expect(ownerBalance).to.be.equal(ethers.parseUnits("900", decimals));
     expect(recipientBalance).to.be.equal(amount);
   });
+
+  //approve token
+  it("Approves tokens", async () => {
+    const [owner, spender] = await ethers.getSigners();
+    const decimals = await erc.decimals();
+    const amount = ethers.parseUnits("100", decimals);
+
+    // Call approve() to allow 'spender' to spend 100 tokens on behalf of 'owner'
+    const tx = await erc.approve(spender.address, amount);
+    await tx.wait(); // Wait for transaction to be mined
+
+    // Check the allowance
+    const allowance = await erc.allowance(owner.address, spender.address);
+    expect(allowance).to.equal(amount);
+  });
+
+  it("Allows spender to transfer tokens via transferFrom", async () => {
+    const [owner, spender] = await ethers.getSigners();
+    const decimals = await erc.decimals();
+    const amount = ethers.parseUnits("50", decimals);
+
+    await erc.approve(spender.address, amount);
+
+    const ercConnectedToSpender = erc.connect(spender);
+    await ercConnectedToSpender.transferFrom(
+      owner.address,
+      spender.address,
+      amount
+    );
+
+    const spenderBalance = await erc.balanceOf(spender.address);
+    expect(spenderBalance).to.equal(amount);
+  });
 });
