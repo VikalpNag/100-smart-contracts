@@ -37,4 +37,23 @@ contract CustomERC20 {
         emit Approval(msg.sender, _spender, _amount);
         return true;
     }
+
+    function transferFrom(
+        address _from,
+        address _to,
+        uint256 _amount
+    ) public returns (bool) {
+        require(balanceOf[_from] >= _amount, "Not enough balance");
+        require(
+            allowance[_from][msg.sender] >= _amount,
+            "Not enough allowance"
+        );
+
+        balanceOf[_from] -= _amount;
+        balanceOf[_to] += _amount;
+        allowance[_from][msg.sender] -= _amount;
+
+        emit Transfer(_from, _to, _amount);
+        return true;
+    }
 }
