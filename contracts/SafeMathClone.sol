@@ -1,16 +1,16 @@
-// SPDX-License-Identifier : Unlicense
+// SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-library SafeMathClone {
-    function add(uint256 a, uint256 b) internal pure returns (uint256) {
-        uint256 c = a + b;
-        require(c >= a, "addition overFLow");
-        return c;
+import "./SafeMathClone.sol";
+
+contract MathWrapper {
+    using SafeMathClone for uint256;
+
+    function testAdd(uint256 a, uint256 b) public pure returns (uint256) {
+        return a.add(b);
     }
 
-    function sub(uint256 a, uint256 b) internal pure returns (uint256) {
-        uint256 c = a - b;
-        require(b <= a, "Subtraction Underflow");
-        return c;
+    function testSub(uint256 a, uint256 b) public pure returns (uint256) {
+        return a.sub(b);
     }
 }
