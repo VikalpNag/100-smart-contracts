@@ -23,4 +23,14 @@ contract Crowdfunding {
         deadline = block.timestamp + _durationInSeconds;
         goal = _goal;
     }
+
+    function contribute() public payable {
+        require(block.timestamp < deadline, "Campaign ended");
+        require(msg.value > 0, "Must send ETH");
+
+        contributions[msg.sender] += msg.value;
+        totalRaised += msg.value;
+
+        emit Funded(msg.sender,msg.value)
+    }
 }
