@@ -45,4 +45,16 @@ contract Crowdfunding {
 
         emit Withdrawn(creator, totalRaised);
     }
+
+    function refund() public {
+        require(block.timestamp >= deadline, "Campaign still active");
+        require(totalRaised < goal, "Goal was reached");
+        uint amount = contributions[msg.sender];
+        require(amount > 0, "No funds to refund");
+
+        contributions[msg.sender] = 0;
+        payable(msg.sender).transfer(amount);
+
+        emit Refunded(msg.sender, amount);
+    }
 }
