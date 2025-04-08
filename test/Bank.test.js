@@ -21,4 +21,19 @@ describe("Bank Transactions", function () {
 
     expect(balance).to.be.equal(depositAmount);
   });
+
+  it("Return Ethereum withdrawal", async () => {
+    const depositAmount = await ethers.parseEther("1"); //deposit amount = 1 ETH
+    const withdrawalAmount = await ethers.parseEther("0.5"); //withdraw amount = 0.5 ETH
+
+    //connect with user and deposit ETH
+    await bank.connect(user).deposit({ value: depositAmount });
+
+    //connect with user and withdraw ETH
+    await bank.connect(user).withdraw(withdrawalAmount);
+
+    //balance after withdrawal
+    const balance = await bank.balances(user.address); //now the balance available should = 0.5 ETH to pass the test
+    expect(balance).to.be.equal(withdrawalAmount);
+  });
 });
