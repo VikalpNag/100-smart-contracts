@@ -1,7 +1,7 @@
-//SPDX-License-Identifier: Unlicensed
+// SPDX-License-Identifier: Unlicensed
 pragma solidity ^0.8.0;
 
-contract MultiSignWallet {
+contract MultiSigWallet {
     address[] public owners;
     mapping(address => bool) public isOwner;
     uint public required;
@@ -15,88 +15,128 @@ contract MultiSignWallet {
     }
 
     Transaction[] public transactions;
-    mapping(uint => mapping(address => bool)) isConfirmed;
+    mapping(uint => mapping(address => bool)) public isConfirmed;
 
     modifier onlyOwner() {
         require(isOwner[msg.sender], "Not owner");
         _;
     }
 
-    constructor(address memory _owner, uint _required) {
-        require(_owner.length > 0, "Owners Required");
+    modifier txExists(uint _txIndex) {
+        require(_txIndex < transactions.length, "Transaction does not exist");
+        _;
+    }
+
+    modifier notConfirmed(uint _txIndex) {
+        require(!isConfirmed[_txIndex][msg.sender], "Already confirmed");
+        _;
+    }
+
+    modifier notExecuted(uint _txIndex) {
+        require(!transactions[_txIndex].executed, "Already executed");
+        _;
+    }
+
+    constructor(address[] memory _owners, uint _required) {
+        require(_owners.length > 0, "Owners required");
         require(
-            _required > 0 && _required <= _owner.length,
+            _required > 0 && _required <= _owners.length,
             "Invalid requirement"
         );
 
-        for (uint i = 0; i < _owner.length; i++) {
-            address owner = _owner[i];
-            require(owner != address(0) && !isOwner[owner], "Invalid Owner");
+        for (uint i = 0; i < _owners.length; i++) {
+            address owner = _owners[i];
+            require(owner != address(0), "Invalid owner");
+            require(!isOwner[owner], "Owner not unique");
 
             isOwner[owner] = true;
             owners.push(owner);
         }
+
         required = _required;
     }
 
-    receive() external payable{};
+    receive() external payable {}
 
-
-//Sumit transaction details
-    function submitTransaction(address _to,uint _value,bytes memory _data)public onlyOwner{
-        transactions.push(Transaction({
-            to:_to,
-            value:_value,
-            data:_data,
-            executed:false,
-            numConfirmation:0,
-        }));
+    function submitTransaction(
+        address _to,
+        uint _value,
+        bytes memory _data
+    ) public onlyOwner {
+        transactions.push(
+            Transaction({
+                to: _to,
+                value: _value,
+                data: _data,
+                executed: false,
+                numConfirmations: 0
+            })
+        );
     }
 
-    //confirm transactions
-    function confirmTransactions(uint _txIndex) public onlyOwner{
-            Transaction storage transaction=transactions[_txIndex];
+    function confirmTransaction(
+        uint _txIndex
+    )
+        public
+        onlyOwner
+        txExists(_txIndex)
+        notExecuted(_txIndex)
+        notConfirmed(_txIndex)
+    {
+        Transaction storage transaction = transactions[_txIndex];
+        transaction.numConfirmations += 1;
+        isConfirmed[_txIndex][msg.sender] = true;
 
-            require(!transaction.executed,"Already executed");
-            require(!isConfirmed[_txIndex][msg.sender],"Already Confirmed");
-
-            transaction.numConfirmations+=1;
-            isConfirmed[_txIndex][msg.sender]=true;
-
-            if(transaction.numConfirmations >= required){
-                executeTransaction(_txIndex);
-            }
+        if (transaction.numConfirmations >= required) {
+            executeTransaction(_txIndex);
+        }
     }
 
-
-//Execute Transaction 
-    function executeTransaction(uint _txIndex) internal{
+    function executeTransaction(
+        uint _txIndex
+    ) internal txExists(_txIndex) notExecuted(_txIndex) {
         Transaction storage transaction = transactions[_txIndex];
 
-        require(!transaction.executed,"Already executed");
-        require(transaction.numConfirmations >=required,"Not enough confirmations");
+        require(
+            transaction.numConfirmations >= required,
+            "Not enough confirmations"
+        );
 
-        transactions.executed=true;
-        (bool success,)=transaction.to.call{value:transaction.value}(transaction.data);
-        require(success,"Transaction failed");
+        transaction.executed = true;
+        (bool success, ) = transaction.to.call{value: transaction.value}(
+            transaction.data
+        );
+        require(success, "Transaction failed");
     }
 
-    //get owners of transaction
-    function getOwners() public view returns(address[] memory){
+    function getOwners() public view returns (address[] memory) {
         return owners;
     }
 
-    //Transaction count
-    function getTransactionCount()public view returns(uint){
+    function getTransactionCount() public view returns (uint) {
         return transactions.length;
     }
 
-    //Transactions
-    function getTransaction(uint _txIndex) public view returns(
-        address to, uint value, bytes memory data,bool executed,uint numConfirmations
-        ){
-            Transaction memory txn=transaction[_txIndex];
-            return(txn.to,txn.value,txn.data,txn.executed,txn.numConfirmations);
+    function getTransaction(
+        uint _txIndex
+    )
+        public
+        view
+        returns (
+            address to,
+            uint value,
+            bytes memory data,
+            bool executed,
+            uint numConfirmations
+        )
+    {
+        Transaction storage txn = transactions[_txIndex];
+        return (
+            txn.to,
+            txn.value,
+            txn.data,
+            txn.executed,
+            txn.numConfirmations
+        );
     }
-
 }
