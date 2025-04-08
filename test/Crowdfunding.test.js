@@ -22,4 +22,10 @@ describe("Crowd funding", function () {
     expect(await crowdfunding.creator()).to.be.equal(creator.address);
     expect(await crowdfunding.goal()).to.be.equal(goalAmount);
   });
+
+  it("Should not accept zero contribution", async () => {
+    await expect(
+      crowdfunding.connect(backer1).contribute({ value: 0 })
+    ).to.be.revertedWith("Must send ETH");
+  });
 });
