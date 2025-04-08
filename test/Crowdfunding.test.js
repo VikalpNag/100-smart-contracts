@@ -38,4 +38,27 @@ describe("Crowd funding", function () {
         .contribute({ value: ethers.parseEther("1") })
     ).to.be.revertedWith("Campaign ended");
   });
+
+  it("should allow user to withdraw funds when goal reached after deadline", async () => {
+    //contribute
+    await crowdfunding
+      .connect(backer1)
+      .contribute({ value: ethers.parseEther("1.5") });
+    await crowdfunding
+      .connect(backer2)
+      .contribute({ value: ethers.parseEther("1.5") });
+
+    //move time forward to exceed deadline
+    await ethers.provider.send("evm_increaseTime", [duration + 1]);
+    await ethers.provider.send("evm_mine");
+
+    const balanceBefore = await ethers.provider.getBalance(creator.address);
+
+    const tx = await crowdfunding.connect(creator).withdrawFunds();
+    const receipt = await tx.wait();
+    const gasUsed = receipt.gasUsed * receipt.gasPrice;
+
+    const balanceAfter = await ethers.provider.getBalance(creator.address);
+    expect(balanceAfter).to.be.above(balanceBefore);
+  });
 });
