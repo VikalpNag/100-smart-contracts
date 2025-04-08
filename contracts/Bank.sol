@@ -16,7 +16,6 @@ contract Bank {
     function deposit() public payable {
         //check whether deposit val is > 0.
         require(msg.value > 0, "Must send some ether");
-
         balances[msg.sender] += msg.value;
 
         emit Deposited(msg.sender, msg.value);
