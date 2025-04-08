@@ -68,6 +68,8 @@ contract MultiSignWallet {
             }
     }
 
+
+//Execute Transaction 
     function executeTransaction(uint _txIndex) internal{
         Transaction storage transaction = transactions[_txIndex];
 
@@ -77,6 +79,11 @@ contract MultiSignWallet {
         transactions.executed=true;
         (bool success,)=transaction.to.call{value:transaction.value}(transaction.data);
         require(success,"Transaction failed");
+    }
+
+    //get owners of transaction
+    function getOwners() public view returns(address[] memory){
+        return owners;
     }
 
 }
