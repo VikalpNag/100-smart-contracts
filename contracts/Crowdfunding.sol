@@ -57,4 +57,9 @@ contract Crowdfunding {
 
         emit Refunded(msg.sender, amount);
     }
+
+    function getTimeLeft() public view returns (uint) {
+        if (block.timestamp >= deadline) return 0;
+        return deadline - block.timestamp;
+    }
 }
