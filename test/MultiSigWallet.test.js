@@ -56,4 +56,14 @@ describe("Multi Sign Wallet", function () {
     const txn = await wallet.getTransaction(0);
     expect(txn.executed).to.be.equal(false); // execution fails: still needs one more approval
   });
+
+  it("should not allow non-owners to confirm transactions", async () => {
+    await wallet
+      .connect(owner1)
+      .submitTransaction(recipient.address, ethers.parseEther("1"), "0x");
+
+    await expect(
+      wallet.connect(recipient).confirmTransaction(0)
+    ).to.be.revertedWith("Not owner");
+  });
 });
