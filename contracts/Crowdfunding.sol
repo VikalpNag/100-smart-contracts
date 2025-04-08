@@ -31,6 +31,18 @@ contract Crowdfunding {
         contributions[msg.sender] += msg.value;
         totalRaised += msg.value;
 
-        emit Funded(msg.sender,msg.value)
+        emit Funded(msg.sender, msg.value);
+    }
+
+    function withdrawFunds() public {
+        require(msg.sender == creator, "Only creator");
+        require(block.timestamp >= deadline, "Campaign still active");
+        require(totalRaised >= goal, "Funding goal not reached");
+        require(!fundsWithdrawn, "Already funds withdrawn");
+
+        fundsWithdrawn = true;
+        payable(creator).transfer(totalRaised);
+
+        emit Withdrawn(creator, totalRaised);
     }
 }
