@@ -66,4 +66,23 @@ describe("Multi Sign Wallet", function () {
       wallet.connect(recipient).confirmTransaction(0)
     ).to.be.revertedWith("Not owner");
   });
+
+  it("should prevent double confirmation by the same owner", async () => {
+    await wallet
+      .connect(owner1)
+      .submitTransaction(recipient.address, ethers.parseEther("1"), "0x");
+
+    await wallet.connect(owner1).confirmTransaction(0);
+
+    await expect(
+      wallet.connect(owner1).confirmTransaction(0)
+    ).to.be.revertedWith("Already confirmed");
+  });
+
+  it("should reject invalid owner during deployment", async () => {
+    const MultiSigWallet = await ethers.getContractFactory("MultiSigWallet");
+    await expect(
+      MultiSigWallet.deploy([owner1.address, ethers.ZeroAddress], 1)
+    ).to.be.revertedWith("Invalid owner");
+  });
 });
