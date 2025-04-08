@@ -91,4 +91,12 @@ contract MultiSignWallet {
         return transactions.length;
     }
 
+    //Transactions
+    function getTransaction(uint _txIndex) public view returns(
+        address to, uint value, bytes memory data,bool executed,uint numConfirmations
+        ){
+            Transaction memory txn=transaction[_txIndex];
+            return(txn.to,txn.value,txn.data,txn.executed,txn.numConfirmations);
+    }
+
 }
