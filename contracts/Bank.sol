@@ -6,7 +6,7 @@ contract Bank {
     mapping(address => uint256) public balances;
 
     event Deposited(address indexed sender, uint256 amount);
-    event Withdrawn(address indexed reciever, uint256 amount);
+    event Withdrawn(address indexed receiver, uint256 amount);
 
     constructor() {
         owner = msg.sender;
