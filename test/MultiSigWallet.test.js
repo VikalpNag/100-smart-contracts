@@ -33,4 +33,16 @@ describe("Multi Sign Wallet", function () {
     expect(txn.executed).to.be.equal(false);
     expect(txn.numConfirmations).to.be.equal(0);
   });
+
+  it("Should confirms and approves a transaction after enough approvals", async () => {
+    await wallet
+      .connect(owner1)
+      .submitTransaction(recipient.address, ethers.parseEther("1"), "0x");
+
+    await wallet.connect(owner1).confirmTransaction(0);
+    await wallet.connect(owner2).confirmTransaction(0); //In 2nd approval it triggers and executes
+
+    const txn = await wallet.getTransaction(0);
+    expect(txn.executed).to.be.equal(true);
+  });
 });
