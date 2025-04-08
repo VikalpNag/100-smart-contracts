@@ -85,4 +85,16 @@ describe("Multi Sign Wallet", function () {
       MultiSigWallet.deploy([owner1.address, ethers.ZeroAddress], 1)
     ).to.be.revertedWith("Invalid owner");
   });
+
+  it("should not execute twice", async () => {
+    await wallet
+      .connect(owner1)
+      .submitTransaction(recipient.address, ethers.parseEther("1"), "0x");
+
+    await wallet.connect(owner1).confirmTransaction(0);
+    await wallet.connect(owner2).confirmTransaction(0); //executed here
+    await expect(
+      wallet.connect(owner3).confirmTransaction(0)
+    ).to.be.revertedWith("Already executed");
+  });
 });
