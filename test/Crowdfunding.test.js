@@ -28,4 +28,14 @@ describe("Crowd funding", function () {
       crowdfunding.connect(backer1).contribute({ value: 0 })
     ).to.be.revertedWith("Must send ETH");
   });
+
+  it("Should not accept contribution after deadline", async () => {
+    await ethers.provider.send("evm_increaseTime", [duration + 1]);
+    await ethers.provider.send("evm_mine");
+    await expect(
+      crowdfunding
+        .connect(backer1)
+        .contribute({ value: ethers.parseEther("1") })
+    ).to.be.revertedWith("Campaign ended");
+  });
 });
