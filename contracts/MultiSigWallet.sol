@@ -86,4 +86,9 @@ contract MultiSignWallet {
         return owners;
     }
 
+    //Transaction count
+    function getTransactionCount()public view returns(uint){
+        return transactions.length;
+    }
+
 }
