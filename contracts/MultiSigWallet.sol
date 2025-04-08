@@ -42,6 +42,7 @@ contract MultiSignWallet {
     receive() external payable{};
 
 
+//Sumit transaction details
     function submitTransaction(address _to,uint _value,bytes memory _data)public onlyOwner{
         transactions.push(Transaction({
             to:_to,
@@ -51,4 +52,22 @@ contract MultiSignWallet {
             numConfirmation:0,
         }));
     }
+
+    //confirm transactions
+    function confirmTransactions(uint _txIndex) public onlyOwner{
+            Transaction storage transaction=transactions[_txIndex];
+
+            require(!transaction.executed,"Already executed");
+            require(!isConfirmed[_txIndex][msg.sender],"Already Confirmed");
+
+            transaction.numConfirmations+=1;
+            isConfirmed[_txIndex][msg.sender]=true;
+
+            if(transaction.numConfirmations >= required){
+                executeTransaction(_txIndex);
+            }
+    }
+
+    
+
 }
