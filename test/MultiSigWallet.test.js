@@ -45,4 +45,15 @@ describe("Multi Sign Wallet", function () {
     const txn = await wallet.getTransaction(0);
     expect(txn.executed).to.be.equal(true);
   });
+
+  it("Should fail to execute with insufficient approvals", async () => {
+    await wallet
+      .connect(owner1)
+      .submitTransaction(recipient.address, ethers.parseEther("1"), "0x");
+
+    await wallet.connect(owner1).confirmTransaction(0);
+
+    const txn = await wallet.getTransaction(0);
+    expect(txn.executed).to.be.equal(false); // execution fails: still needs one more approval
+  });
 });
