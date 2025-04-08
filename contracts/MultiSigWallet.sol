@@ -68,6 +68,15 @@ contract MultiSignWallet {
             }
     }
 
-    
+    function executeTransaction(uint _txIndex) internal{
+        Transaction storage transaction = transactions[_txIndex];
+
+        require(!transaction.executed,"Already executed");
+        require(transaction.numConfirmations >=required,"Not enough confirmations");
+
+        transactions.executed=true;
+        (bool success,)=transaction.to.call{value:transaction.value}(transaction.data);
+        require(success,"Transaction failed");
+    }
 
 }
