@@ -45,4 +45,14 @@ contract Auction {
         highestBid = msg.value;
         emit NewHighestBid(msg.sender, msg.value);
     }
+
+    function withdrawFund() external {
+        uint amount = refunds[msg.sender];
+        require(amount > 0, "No funds to withdraw");
+
+        refunds[msg.sender]=0;
+        payable(msg.sender).transfer(amount);
+
+        emit(RefundWithdraw(msg.sender, amount);)
+    }
 }
