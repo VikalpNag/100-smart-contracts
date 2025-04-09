@@ -23,4 +23,8 @@ contract Auction {
         require(block.timestamp < endTime, "Auction time ended");
         _;
     }
+
+    modifier auctionEnded() {
+        require(block.timestamp >= endTime, "Auction not ended yet");
+    }
 }
