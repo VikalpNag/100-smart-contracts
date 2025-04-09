@@ -33,4 +33,16 @@ contract Auction {
         seller = msg.sender;
         endTime = block.timestamp + _biddingDurationInSeconds;
     }
+
+    function bid() external payable auctionActive {
+        require(msg.value > highestBid, "Bid not higher than current highest");
+
+        if (highestBid != 0) {
+            refunds[highestBidder] += highestBid;
+        }
+
+        highestBidder = msg.sender;
+        highestBid = msg.value;
+        emit NewHighestBid(msg.sender, msg.value);
+    }
 }
