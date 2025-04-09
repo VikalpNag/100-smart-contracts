@@ -27,4 +27,10 @@ contract Auction {
     modifier auctionEnded() {
         require(block.timestamp >= endTime, "Auction not ended yet");
     }
+
+    constructor(uint _biddingDurationInSeconds) {
+        require(_biddingDurationInSeconds > 0, "Duration must be >0");
+        seller = msg.sender;
+        endTime = block.timestamp + _biddingDurationInSeconds;
+    }
 }
