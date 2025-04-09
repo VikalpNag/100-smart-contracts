@@ -9,4 +9,8 @@ contract Auction {
     bool public ended;
 
     mapping(address => uint) public refunds;
+
+    event NewHighestBid(address indexed bidder,uint256 amount);
+    event AuctionEnded(address indexed winner,uint256 amount);
+    event RefundWithdraw(address indexed bidder,uint256 amount)
 }
