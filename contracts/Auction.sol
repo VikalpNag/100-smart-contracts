@@ -26,6 +26,7 @@ contract Auction {
 
     modifier auctionEnded() {
         require(block.timestamp >= endTime, "Auction not ended yet");
+        _;
     }
 
     constructor(uint _biddingDurationInSeconds) {
@@ -50,22 +51,22 @@ contract Auction {
         uint amount = refunds[msg.sender];
         require(amount > 0, "No funds to withdraw");
 
-        refunds[msg.sender]=0;
+        refunds[msg.sender] = 0;
         payable(msg.sender).transfer(amount);
 
-        emit(RefundWithdraw(msg.sender, amount);)
+        emit RefundWithdraw(msg.sender, amount);
     }
 
-    function endAuction() external onlySeller auctionEnded{
-        require(!ended,"Auction already ended");
+    function endAuction() external onlySeller auctionEnded {
+        require(!ended, "Auction already ended");
 
-        ended=true;
+        ended = true;
         payable(seller).transfer(highestBid);
-        emit AuctionEnded(highestBidder,highestBid);
+        emit AuctionEnded(highestBidder, highestBid);
     }
 
-    function getTimeLeft() external view returns(uint){
-        if(block.timestamp>=endTime) return0;
-        return endTime-block.timestamp;
+    function getTimeLeft() external view returns (uint) {
+        if (block.timestamp >= endTime) return 0;
+        return endTime - block.timestamp;
     }
 }
