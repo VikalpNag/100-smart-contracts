@@ -10,7 +10,11 @@ contract Auction {
 
     mapping(address => uint) public refunds;
 
-    event NewHighestBid(address indexed bidder,uint256 amount);
-    event AuctionEnded(address indexed winner,uint256 amount);
-    event RefundWithdraw(address indexed bidder,uint256 amount)
+    event NewHighestBid(address indexed bidder, uint256 amount);
+    event AuctionEnded(address indexed winner, uint256 amount);
+    event RefundWithdraw(address indexed bidder, uint256 amount);
+
+    modifier onlySeller() {
+        require(msg.sender == seller, "Not the real seller");
+    }
 }
