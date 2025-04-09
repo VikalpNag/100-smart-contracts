@@ -16,5 +16,11 @@ contract Auction {
 
     modifier onlySeller() {
         require(msg.sender == seller, "Not the real seller");
+        _;
+    }
+
+    modifier auctionActive() {
+        require(block.timestamp < endTime, "Auction time ended");
+        _;
     }
 }
