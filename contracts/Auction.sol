@@ -1,0 +1,12 @@
+//SPDX-License-Identifier:MIT
+pragma solidity ^0.8.0;
+
+contract Auction {
+    address public seller;
+    address public highestBidder;
+    uint public highestBid;
+    uint public endTime;
+    bool public ended;
+
+    mapping(address => uint) public refunds;
+}
