@@ -63,4 +63,9 @@ contract Auction {
         payable(seller).transfer(highestBid);
         emit AuctionEnded(highestBidder,highestBid);
     }
+
+    function getTimeLeft() external view returns(uint){
+        if(block.timestamp>=endTime) return0;
+        return endTime-block.timestamp;
+    }
 }
