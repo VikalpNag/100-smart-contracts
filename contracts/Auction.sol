@@ -55,4 +55,12 @@ contract Auction {
 
         emit(RefundWithdraw(msg.sender, amount);)
     }
+
+    function endAuction() external onlySeller auctionEnded{
+        require(!ended,"Auction already ended");
+
+        ended=true;
+        payable(seller).transfer(highestBid);
+        emit AuctionEnded(highestBidder,highestBid);
+    }
 }
