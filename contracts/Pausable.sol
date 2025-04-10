@@ -27,4 +27,9 @@ contract Pausable {
         require(paused, "Contract is not paused");
         _;
     }
+
+    function pause() external onlyOwner whenNotPaused {
+        paused = true;
+        emit Paused();
+    }
 }
