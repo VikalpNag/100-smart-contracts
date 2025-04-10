@@ -17,4 +17,9 @@ contract Pausable {
         require(msg.sender == owner, "Not the owner");
         _;
     }
+
+    modifier whenNotPaused() {
+        require(!paused, "Contract is paused");
+        _;
+    }
 }
