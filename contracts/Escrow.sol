@@ -20,4 +20,9 @@ contract Escrow {
         seller = _seller;
         inspector = _inspector;
     }
+
+    modifier onlyBuyer() {
+        require(msg.sender == buyer, "Not the real buyer");
+        _;
+    }
 }
