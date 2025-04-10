@@ -46,4 +46,13 @@ contract Escrow {
         isReleased = true;
         payable(seller).transfer(amount);
     }
+
+    function refundBuyer() external onlyInspector {
+        require(isFunded, "No funds to refund");
+        require(!isRefunded, "Already refunded");
+        require(!isReleased, "Already released");
+
+        isRefunded = true;
+        payable(buyer).transfer(amount);
+    }
 }
