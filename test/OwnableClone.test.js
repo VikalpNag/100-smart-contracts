@@ -14,4 +14,9 @@ describe("Ownable Clone", function () {
   it("Set the deployer as owner", async () => {
     expect(await ownable.owner()).to.be.equal(owner.address);
   });
+
+  it("Allows owner to transfer ownership", async () => {
+    await ownable.transferOwnership(addr1.address);
+    expect(await ownable.owner()).to.be.equal(addr1.address);
+  });
 });
