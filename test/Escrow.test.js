@@ -15,4 +15,10 @@ describe("Escrow", function () {
     );
     await escrow.waitForDeployment();
   });
+
+  it("Returns deposit fund", async () => {
+    await escrow.connect(buyer).deposit({ value: ethers.parseEther("1") });
+    const balance = await ethers.provider.getBalance(escrow.target);
+    expect(balance).to.be.equal(ethers.parseEther("1"));
+  });
 });
