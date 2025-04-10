@@ -22,4 +22,9 @@ contract Pausable {
         require(!paused, "Contract is paused");
         _;
     }
+
+    modifier whenPaused() {
+        require(paused, "Contract is not paused");
+        _;
+    }
 }
