@@ -15,4 +15,8 @@ contract OwnableClone {
         _owner = msg.sender;
         emit OwnershipTransferred(address(0), msg.sender);
     }
+
+    function owner() public view returns (address) {
+        return _owner;
+    }
 }
