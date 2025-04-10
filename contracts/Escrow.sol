@@ -55,4 +55,8 @@ contract Escrow {
         isRefunded = true;
         payable(buyer).transfer(amount);
     }
+
+    function getBalance() external view returns (uint256) {
+        return address(this).balance;
+    }
 }
