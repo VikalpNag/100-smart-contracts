@@ -24,4 +24,9 @@ describe("Pausable contract", function () {
     await pausable.connect(owner).unPause();
     expect(await pausable.paused()).to.equal(false);
   });
+
+  it("Should revert critical function when paused", async () => {
+    await pausable.connect(owner).pause();
+    await expect(pausable.pause()).to.be.revertedWith("Contract is paused");
+  });
 });
