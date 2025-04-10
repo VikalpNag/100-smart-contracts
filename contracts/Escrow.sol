@@ -30,4 +30,11 @@ contract Escrow {
         require(msg.sender == inspector, "Not the real inspector");
         _;
     }
+
+    function deposit() external payable onlyBuyer {
+        require(!isFunded, "Already Funded");
+        require(msg.value > 0, "Must deposit some ETH");
+        amount = msg.value;
+        isFunded = true;
+    }
 }
