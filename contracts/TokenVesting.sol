@@ -31,11 +31,23 @@ contract TokenVesting {
         totalAmount = _amount;
     }
 
+    //release vested tokens to the beneficiary
     function release() public {
         uint256 unreleased = vestedAmount() - released;
         require(unreleased > 0, "No tokens to release");
 
         released += unreleased;
         require(token.transfer(beneficiary, unreleased), "Transfer failed");
+    }
+
+    //Amount of tokens vested up to the current time
+    function vestedAmount() public view returns (uint256) {
+        if (block.timestamp < start) {
+            return 0;
+        } else if (block.timestamp >= start + duration) {
+            return totalAmount;
+        } else {
+            return (totalAmount * (block.timestamp - start)) / duration;
+        }
     }
 }
