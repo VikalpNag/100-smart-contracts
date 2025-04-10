@@ -38,3 +38,5 @@ contract Pausable {
         emit UnPaused();
     }
 }
+
+//If you're building a token, marketplace, or any app with critical actions (like transferring, minting, or withdrawing), wrap those functions with whenNotPaused.
