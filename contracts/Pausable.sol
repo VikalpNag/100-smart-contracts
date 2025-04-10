@@ -32,4 +32,9 @@ contract Pausable {
         paused = true;
         emit Paused();
     }
+
+    function unPause() external onlyOwner whenPaused {
+        paused = false;
+        emit UnPaused();
+    }
 }
