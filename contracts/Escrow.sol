@@ -8,7 +8,7 @@ contract Escrow {
 
     uint public amount;
     bool public isFunded;
-    bool public isRealesed;
+    bool public isReleased;
     bool public isRefunded;
 
     constructor(address _buyer, address _seller, address _inspector) {
@@ -36,5 +36,14 @@ contract Escrow {
         require(msg.value > 0, "Must deposit some ETH");
         amount = msg.value;
         isFunded = true;
+    }
+
+    function releaseFunds() external onlyInspector {
+        require(isFunded, "No funds to release");
+        require(!isReleased, "Funds already released");
+        require(!isRefunded, "Already refunded");
+
+        isReleased = true;
+        payable(seller).transfer(amount);
     }
 }
