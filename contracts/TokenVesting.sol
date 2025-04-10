@@ -36,5 +36,6 @@ contract TokenVesting {
         require(unreleased > 0, "No tokens to release");
 
         released += unreleased;
+        require(token.transfer(beneficiary, unreleased), "Transfer failed");
     }
 }
