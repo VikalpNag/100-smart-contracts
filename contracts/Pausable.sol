@@ -12,4 +12,9 @@ contract Pausable {
         owner = msg.sender;
         paused = false;
     }
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Not the owner");
+        _;
+    }
 }
