@@ -7,4 +7,9 @@ contract Pausable {
 
     event Paused();
     event UnPaused();
+
+    constructor() {
+        owner = msg.sender;
+        paused = false;
+    }
 }
