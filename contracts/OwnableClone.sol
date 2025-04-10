@@ -10,4 +10,9 @@ contract OwnableClone {
         address indexed previousOwner,
         address indexed newOwner
     );
+
+    constructor() {
+        _owner = msg.sender;
+        emit OwnershipTransferred(address(0), msg.sender);
+    }
 }
