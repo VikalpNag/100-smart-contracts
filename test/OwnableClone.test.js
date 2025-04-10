@@ -19,4 +19,9 @@ describe("Ownable Clone", function () {
     await ownable.transferOwnership(addr1.address);
     expect(await ownable.owner()).to.be.equal(addr1.address);
   });
+
+  it("Allows the owner to renounce ownership ", async () => {
+    await ownable.renounceOwnership();
+    expect(await ownable.owner()).to.be.equal(ethers.ZeroAddress);
+  });
 });
