@@ -26,4 +26,12 @@
 
 //     await expect(nft.connect(user).mint(user.address, uri)).to.be.reverted;
 //   });
+
+//   it("Should return token URI using getTokenURI()", async () => {
+//     const uri = "ipfs://QmCID123";
+//     await nft.connect(owner).mint(user.address, uri);
+
+//     const storedURI = await nft.getTokenURI(0);
+//     expect(storedURI).to.be.equal(uri);
+//   });
 // });
