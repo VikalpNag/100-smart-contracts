@@ -1,4 +1,4 @@
-//SPDX-License-Identifier: MIT
+//SPDX-License-Identifier:UNLICENSED
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
@@ -10,7 +10,7 @@ contract MyERC721 is ERC721URIStorage, Ownable {
     constructor(
         string memory name,
         string memory symbol
-    ) ERC721(name, symbol) {}
+    ) ERC721(name, symbol) Ownable(msg.sender) {}
 
     //Mint NFT with a token URI
     function mint(address to, string memory tokenURI) public onlyOwner {
@@ -18,11 +18,19 @@ contract MyERC721 is ERC721URIStorage, Ownable {
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, tokenURI);
         nextTokenId++;
+    }
 
-        //return the metadata URI of a given tokenId
-        function getTokenURI(uint256 tokenId) public view returns (string memory){
-            require(_exists(tokenId),"Token does not exists");
-            return tokenURI(tokenId);
+    function _existsPublic(uint256 tokenId) public view returns (bool) {
+        try this.ownerOf(tokenId) returns (address) {
+            return true;
+        } catch {
+            return false;
         }
+    }
+
+    //return the metadata URI of a given tokenId
+    function getTokenURI(uint256 tokenId) public view returns (string memory) {
+        require(_existsPublic(tokenId), "Token does not exist");
+        return tokenURI(tokenId);
     }
 }

@@ -11,4 +11,13 @@ describe("MyERC721", function () {
     nft = await MyERC721.deploy("MyNFT", "MNFT");
     await nft.waitForDeployment();
   });
+
+  it("Should mint nft with correct URI", async () => {
+    const uri = "ipfs://QmSomeCID";
+
+    await nft.connect(owner).mint(user.address, uri);
+
+    expect(await nft.ownerOf(0)).to.be.equal(user.address);
+    expect(await nft.tokenURI(0)).to.equal(uri);
+  });
 });
