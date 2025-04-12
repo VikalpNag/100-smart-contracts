@@ -18,5 +18,11 @@ contract MyERC721 is ERC721URIStorage, Ownable {
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, tokenURI);
         nextTokenId++;
+
+        //return the metadata URI of a given tokenId
+        function getTokenURI(uint256 tokenId) public view returns (string memory){
+            require(_exists(tokenId),"Token does not exists");
+            return tokenURI(tokenId);
+        }
     }
 }
