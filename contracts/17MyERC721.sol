@@ -11,4 +11,12 @@ contract MyERC721 is ERC721URIStorage, Ownable {
         string memory name,
         string memory symbol
     ) ERC721(name, symbol) {}
+
+    //Mint NFT with a token URI
+    function mint(address to, string memory tokenURI) public onlyOwner {
+        uint256 tokenId = nextTokenId;
+        _safeMint(to, tokenId);
+        _setTokenURI(tokenId, tokenURI);
+        nextTokenId++;
+    }
 }
