@@ -27,4 +27,9 @@ contract MyERC1155 is ERC1155, Ownable {
     )external onlyOwner{
         _mintBatch(to,ids,amounts,data)
     }
+
+
+    function setURI(string memory newuri)external onlyOwner{
+        _setURI(newuri);
+    }
 }
