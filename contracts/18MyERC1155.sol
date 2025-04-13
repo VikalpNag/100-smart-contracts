@@ -18,4 +18,13 @@ contract MyERC1155 is ERC1155, Ownable {
     ) external onlyOwner {
         _mint(to,id,amount,data)
     }
+
+    function mintBatch(
+        address to,
+        uint256[] memory ids,
+        uint256[] memory amounts,
+        bytes memory data
+    )external onlyOwner{
+        _mintBatch(to,ids,amounts,data)
+    }
 }
