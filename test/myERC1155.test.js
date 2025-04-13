@@ -20,4 +20,18 @@
 //     await contract.connect(owner).mint(user.address, 1, 100, "0x");
 //     expect(await contract.balanceOf(user.address, 1)).to.equal(100);
 //   });
+
+//   it("Owner can mint batch token", async () => {
+//     const ids = [1, 2];
+//     const amounts = [50, 100];
+//     await contract.connect(owner).mintBatch(user.address, ids, amounts, "0x");
+
+//     const balances = await contract.balanceOfBatch(
+//       [user.address, user.address],
+//       ids
+//     );
+
+//     expect(balances[0]).to.be.equal(50);
+//     expect(balances[1]).to.be.equal(100);
+//   });
 // });
