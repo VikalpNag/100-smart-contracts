@@ -9,4 +9,13 @@ contract MyERC1155 is ERC1155, Ownable {
     uint256 public constant SILVER = 2;
 
     constructor(string memory _uri) ERC1155(_uri) {}
+
+    function mint(
+        address to,
+        uint256 id,
+        uint256 amount,
+        bytes memory data
+    ) external onlyOwner {
+        _mint(to,id,amount,data)
+    }
 }
