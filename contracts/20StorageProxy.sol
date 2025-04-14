@@ -30,4 +30,8 @@ contract StorageProxy {
     function upgradeTo(address newImplementation) external onlyAdmin{
         _setImplementation(newImplementation);
     }
+
+    function Implementation() external view returns(address){
+        return _getImplementation();
+    }
 }
