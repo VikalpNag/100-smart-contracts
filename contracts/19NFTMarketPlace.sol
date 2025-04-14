@@ -44,4 +44,12 @@ contract NFTMarketplace is ReentrancyGaurd {
         require(listings[nft][tokenId].price > 0;"NFT not listed");
         _;
     }
+
+    //list nfts
+    function listNFT(address nft,uint256 tokenId,uint256 price) external isOwner(nft,tokenId,msg.sender){
+        require(price>0,"Price must be greater than 0");
+        IERC721(nft).transferFrom(msg.sender,,address(this),tokenId);
+        listings[nft][tokenId]=Listing(msg.sender,price)
+        emit Listed(nft,tokenId,msg.sender,price);
+    }
 }
