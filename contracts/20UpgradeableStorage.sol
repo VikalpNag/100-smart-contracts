@@ -14,4 +14,8 @@ contract UpgradeableStorage {
     function getValue() external view returns (uint256) {
         return value;
     }
+
+    function version() external view returns (string memory) {
+        return "v1";
+    }
 }
