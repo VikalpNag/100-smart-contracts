@@ -16,7 +16,16 @@
 //     await marketplace.waitForDeployment();
 
 //     // Mint and approve NFT
-//     await nft.connect(seller).mint("ipfs://token1.json");
+//     await nft.mint(seller.address, "ipfs://token1.json");
 //     await nft.connect(seller).setApprovalForAll(marketplace.target, true);
+//   });
+
+//   it("Should list a NFT", async () => {
+//     await marketplace
+//       .connect(seller)
+//       .listNFT(nft.target, 0, ethers.parseEther("1"));
+//     const listing = await marketplace.getListing(nft.target, 0);
+//     expect(listing.price).to.equal(ethers.parseEther("1"));
+//     expect(listing.seller).to.be.equal(seller.address);
 //   });
 // });
