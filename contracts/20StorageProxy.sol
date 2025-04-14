@@ -5,5 +5,10 @@ contract StorageProxy {
     //EIP-1967 compliant storage slots
     bytes32 private constant IMPLEMENTATION_SLOT =
         keccak256("proxy.implementation");
-    bytes32 private constant ADMIN_SLOT = keccak256(proxy.admin);
+    bytes32 private constant ADMIN_SLOT = keccak256("proxy.admin");
+
+    constructor(address _implementation) {
+        _setAdmin(msg.sender);
+        _setImplementation(_implementation);
+    }
 }
