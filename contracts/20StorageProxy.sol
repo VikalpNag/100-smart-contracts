@@ -49,4 +49,11 @@ contract StorageProxy {
             impl:=sload(slot);
         }
     }
+
+    function _setImplementation(address newImpl) internal{
+        bytes32 slot=IMPLEMENTATION_SLOT;
+        assembly{
+            sstore(slot,newImpl);
+        }
+    }
 }
