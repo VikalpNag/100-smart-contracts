@@ -26,4 +26,8 @@ contract StorageProxy {
 
         }
     }
+
+    function upgradeTo(address newImplementation) external onlyAdmin{
+        _setImplementation(newImplementation);
+    }
 }
