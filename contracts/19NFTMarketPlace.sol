@@ -72,4 +72,8 @@ contract NFTMarketplace is ReentrancyGaurd {
         emit Bought(nft,tokenId,msg.sender,item.price);
 
     }
-}
+
+
+    function getListing(address nft,uint256 tokenId) external view returns(Listing memory){
+        return listings[nft][tokenId];
+    }
