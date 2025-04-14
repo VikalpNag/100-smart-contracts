@@ -34,4 +34,12 @@ contract StorageProxy {
     function Implementation() external view returns(address){
         return _getImplementation();
     }
+
+    function admin() external view returns(address){
+        return _getAdmin();
+    }
+
+    modifier onlyAdmin(){
+        require(msg.sender==_getAdmin(),"Not admin");
+    }
 }
