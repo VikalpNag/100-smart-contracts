@@ -10,4 +10,8 @@ contract UpgradeableStorage {
     function setValue(uint256 _value) external {
         value = _value;
     }
+
+    function getValue() external view returns (uint256) {
+        return value;
+    }
 }
