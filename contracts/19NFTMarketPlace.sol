@@ -59,4 +59,17 @@ contract NFTMarketplace is ReentrancyGaurd {
         delete listings[nft][tokenId];
         emit Canceled(nft,tokenId,msg.sender);
     }
+
+    //buy nfts
+    function buyNFT(address nft,uint256 tokenId) external payable isListed(nft,tokenId) nonReentrant{
+        Listing memory item=listings[nft][tokenId];
+        require(msg.value>=item.price,"Insufficient payment");
+
+        delete listings[nft][tokenId];
+        IERC721(nft).transferFrom(address(this),msg.sender,tokenId);
+        payable(item.seller).transfer(itme.price);
+
+        emit Bought(nft,tokenId,msg.sender,item.price);
+
+    }
 }
