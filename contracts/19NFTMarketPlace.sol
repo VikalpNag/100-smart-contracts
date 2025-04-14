@@ -52,4 +52,11 @@ contract NFTMarketplace is ReentrancyGaurd {
         listings[nft][tokenId]=Listing(msg.sender,price)
         emit Listed(nft,tokenId,msg.sender,price);
     }
+
+    //cancel listing
+    function cancelListing(address nft ,uint256 tokenId) external isOwner(nft,tokenId,listings[nft][tokenId].seller) isListed(nft,tokenId){
+        IERC721(nft).transferFrom(address(this),msg.sender,tokenId);
+        delete listings[nft][tokenId];
+        emit Canceled(nft,tokenId,msg.sender);
+    }
 }
