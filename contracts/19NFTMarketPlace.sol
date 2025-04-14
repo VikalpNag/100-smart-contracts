@@ -30,4 +30,18 @@ contract NFTMarketplace is ReentrancyGaurd {
         address buyer,
         uint256 price
     );
+
+    modifier isOwner(
+        address nft,
+        uint256 tokenId,
+        address spender
+    ) {
+        require(IERC721(nft).ownerOf(tokenId) == spender, "Not the nft owner");
+        _;
+    }
+
+    modifier isListed(address nft, uint256 tokenId) {
+        require(listings[nft][tokenId].price > 0;"NFT not listed");
+        _;
+    }
 }
