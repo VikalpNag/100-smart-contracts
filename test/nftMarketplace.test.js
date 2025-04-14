@@ -28,4 +28,21 @@
 //     expect(listing.price).to.equal(ethers.parseEther("1"));
 //     expect(listing.seller).to.be.equal(seller.address);
 //   });
+
+//   it("Should Buy listed nft", async () => {
+//     await marketplace
+//       .connect(seller)
+//       .listNFT(nft.target, 0, ethers.parseEther("1"));
+
+//     await expect(() =>
+//       marketplace
+//         .connect(buyer)
+//         .buyNFT(nft.target, 0, { value: ethers.parseEther("1") })
+//     ).to.changeEtherBalances(
+//       [buyer, seller],
+//       [ethers.parseEther("-1"), ethers.parseEther("1")]
+//     );
+
+//     expect(await nft.ownerOf(0)).to.be.equal(buyer.address);
+//   });
 // });
