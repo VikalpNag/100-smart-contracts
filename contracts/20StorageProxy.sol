@@ -11,4 +11,19 @@ contract StorageProxy {
         _setAdmin(msg.sender);
         _setImplementation(_implementation);
     }
+
+    fallback() external payable {
+        address impl = _getImplementation();
+        require(impl != address(0), "Implementation not set");
+
+        assembly {
+            calldatacopy(0, 0, calldatasize());
+            let result := delegatecall(gas(), impl, 0, calldatasize(), 0, 0);
+            returndatacopy(0, 0, returndatasize());
+            switch result ;
+            case 0 {revert (0,returndatasize())};
+            default{return(0,returndatasize())};
+
+        }
+    }
 }
