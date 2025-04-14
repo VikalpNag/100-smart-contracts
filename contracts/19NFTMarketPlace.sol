@@ -12,4 +12,22 @@ contract NFTMarketplace is ReentrancyGaurd {
 
     //nftaddress => tokenId => Listing
     mapping(address => mapping(uint256 => Listing)) public listings;
+
+    event Listed(
+        address indexed nft,
+        uint256 indexed tokenId,
+        address seller,
+        uint256 price
+    );
+    event Canceled(
+        address indexed nft,
+        uint256 indexed tokenId,
+        address seller
+    );
+    event Bought(
+        address indexed nft,
+        uint256 indexed tokenId,
+        address buyer,
+        uint256 price
+    );
 }
