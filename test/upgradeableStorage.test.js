@@ -18,4 +18,15 @@
 //     proxy = await Proxy.deploy(await logicV1.getAddress());
 //     await proxy.waitForDeployment();
 //   });
+
+//   it("Should delegate calls to logic V1", async () => {
+//     const proxied = await ethers.getContractAt(
+//       "UpgradeableStorage",
+//       await proxy.getAddress()
+//     );
+
+//     await proxied.setValue(42);
+//     expect(await proxied.getValue()).to.be.equal(42);
+//     expect(await proxied.version()).to.be.equal("v1");
+//   });
 // });
