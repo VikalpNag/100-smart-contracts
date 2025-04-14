@@ -42,4 +42,11 @@ contract StorageProxy {
     modifier onlyAdmin(){
         require(msg.sender==_getAdmin(),"Not admin");
     }
+
+    function _getImplementation() internal view returns(address impl){
+        bytes32 slot=IMPLEMENTATION_SLOT;
+        assembly{
+            impl:=sload(slot);
+        }
+    }
 }
