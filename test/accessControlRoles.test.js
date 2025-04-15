@@ -56,4 +56,11 @@
 //       ethers.parseEther("10")
 //     );
 //   });
+
+//   it("Non pauser can't pause/unpause", async () => {
+//     await expect(token.connect(user).pause()).to.be.revertedWithCustomError(
+//       token,
+//       "AccessControlUnauthorizedAccount"
+//     );
+//   });
 // });
