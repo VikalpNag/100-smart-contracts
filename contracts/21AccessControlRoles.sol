@@ -2,7 +2,10 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/security/Pausable.sol";
+import "@openzeppelin/contracts/utils/Pausable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
-contract AccessControlRoles is ERC20, Pausable, AccessControl {}
+contract AccessControlRoles is ERC20, Pausable, AccessControl {
+    bytes32 public constant MINTER_ROLE=keccak256("MINETR_ROLE")
+}
+
