@@ -41,4 +41,19 @@
 //       token.connect(user).mint(user.address, 100)
 //     ).to.be.revertedWithCustomError(token, "AccessControlUnauthorizedAccount");
 //   });
+
+//   it("Pauser can pause/unpause", async () => {
+//     await token.connect(pauser).pause();
+
+//     await expect(
+//       token.connect(minter).mint(user.address, ethers.parseEther("10"))
+//     ).to.be.revertedWithCustomError(token, "EnforcedPause");
+
+//     await token.connect(pauser).unpause();
+
+//     await token.connect(minter).mint(user.address, ethers.parseEther("10"));
+//     expect(await token.balanceOf(user.address)).to.equal(
+//       ethers.parseEther("10")
+//     );
+//   });
 // });
