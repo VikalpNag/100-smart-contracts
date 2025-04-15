@@ -18,4 +18,8 @@ contract AccessControlRoles is ERC20, Pausable, AccessControl {
     function mint(address to, uint256 amount) public onlyRole(MINTER_ROLE) {
         _mint(to, amount);
     }
+
+    function pause() public onlyRole(PAUSER_ROLE) {
+        _pause();
+    }
 }
