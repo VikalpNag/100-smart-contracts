@@ -1,12 +1,11 @@
-//SPDX-License-Identifier:MIT
-pragma solidity ^0.8.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/utils/Pausable.sol";
+import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Pausable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
-contract AccessControlRoles is ERC20, Pausable, AccessControl {
-    bytes32 public constant MINTER_ROLE = keccak256("MINETR_ROLE");
+contract AccessControlRoles is ERC20Pausable, AccessControl {
+    bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
 
     constructor(address admin) ERC20("RoleToken", "RLT") {
@@ -27,11 +26,12 @@ contract AccessControlRoles is ERC20, Pausable, AccessControl {
         _unpause();
     }
 
-    function _beforeTokenTransfer(
+    // ✅ Correctly override _update for OZ v5
+    function _update(
         address from,
         address to,
-        uint256 amount
-    ) internal override whenNotPaused {
-        super._beforeTokenTransfer(from, to, amount);
+        uint256 value
+    ) internal override(ERC20Pausable) {
+        super._update(from, to, value);
     }
 }
