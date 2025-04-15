@@ -6,6 +6,12 @@ import "@openzeppelin/contracts/utils/Pausable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
 contract AccessControlRoles is ERC20, Pausable, AccessControl {
-    bytes32 public constant MINTER_ROLE=keccak256("MINETR_ROLE")
-}
+    bytes32 public constant MINTER_ROLE = keccak256("MINETR_ROLE");
+    bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
 
+    constructor(address admin) ERC20("RoleToken", "RLT") {
+        _grantRole(DEFAULT_ADMIN_ROLE, admin);
+        _grantRole(MINTER_ROLE, admin);
+        _grantRole(PAUSER_ROLE, admin);
+    }
+}
