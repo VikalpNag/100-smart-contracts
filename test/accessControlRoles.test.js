@@ -1,4 +1,4 @@
-// const { expect } = require("chai");
+// const { expect, use } = require("chai");
 // const { ethers } = require("hardhat");
 
 // describe("Access control roles", function () {
@@ -27,5 +27,12 @@
 //       .true;
 //     expect(await token.hasRole(await token.PAUSER_ROLE(), admin.address)).to.be
 //       .true;
+//   });
+
+//   it("Minter can mint tokens", async () => {
+//     await token.connect(minter).mint(user.address, ethers.parseEther("100"));
+//     expect(await token.balanceOf(user.address)).to.be.equal(
+//       ethers.parseEther("100")
+//     );
 //   });
 // });
