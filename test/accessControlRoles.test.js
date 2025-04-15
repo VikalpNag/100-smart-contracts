@@ -19,4 +19,13 @@
 //       .connect(admin)
 //       .grantRole(await token.PAUSER_ROLE(), pauser.address);
 //   });
+
+//   it("Admin has all roles", async () => {
+//     expect(await token.hasRole(await token.DEFAULT_ADMIN_ROLE(), admin.address))
+//       .to.be.true;
+//     expect(await token.hasRole(await token.MINTER_ROLE(), admin.address)).to.be
+//       .true;
+//     expect(await token.hasRole(await token.PAUSER_ROLE(), admin.address)).to.be
+//       .true;
+//   });
 // });
