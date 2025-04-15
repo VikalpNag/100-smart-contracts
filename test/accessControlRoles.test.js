@@ -35,4 +35,10 @@
 //       ethers.parseEther("100")
 //     );
 //   });
+
+//   it("Non minter cannot mint", async () => {
+//     await expect(
+//       token.connect(user).mint(user.address, 100)
+//     ).to.be.revertedWithCustomError(token, "AccessControlUnauthorizedAccount");
+//   });
 // });
