@@ -19,4 +19,17 @@ contract PaymentSplitterContract is Context {
     mapping(address => uint256) public shares;
     mapping(address => uint256) public released;
     address[] public payees;
+
+    constructor(address[] memory _payees, uint256[] memory _shares) {
+        require(
+            _payees.length == _shares.length,
+            "payees and shares length mismatch"
+        );
+        require(_payees.length > 0, "No payees");
+
+        for (uint256 i = 0; i < _payees.length; i++) {
+            _addPayee(_payees[i], _shares[i]);
+        }
+    }
+    receive external payable{}
 }
