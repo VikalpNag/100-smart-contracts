@@ -22,4 +22,6 @@ contract AccessControlRoles is ERC20, Pausable, AccessControl {
     function pause() public onlyRole(PAUSER_ROLE) {
         _pause();
     }
+
+    function unpause() public onlyRole(PAUSER_ROLE)
 }
