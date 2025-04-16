@@ -18,4 +18,16 @@ contract MerkleMint is ERC721Enumerable, Ownable {
         merkleRoot = _merkleRoot;
         nextTokenId = 1;
     }
+
+    function mint(bytes32[] calldata _proof) external {
+        require(!hasClaimed[msg.sender], "Already claimed");
+
+        bytes32 leaf = keccak256(abi.encodePacked(msg.sender));
+        require(
+            MerkleProof.verify(_proof, merkleRoot, leaf),
+            "Not in Allowlist"
+        );
+        hasClaimed[msg.sender] = true;
+        _safeMint(msg.sender, nextTokenId++);
+    }
 }
