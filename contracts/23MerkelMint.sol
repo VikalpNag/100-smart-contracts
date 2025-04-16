@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
@@ -11,10 +11,9 @@ contract MerkleMint is ERC721Enumerable, Ownable {
     uint256 public nextTokenId;
 
     constructor(
-        string memory name,
-        string memory symbol,
+        address initialOwner,
         bytes32 _merkleRoot
-    ) ERC721(name, symbol) {
+    ) ERC721("Merkle NFT", "MNFT") Ownable(initialOwner) {
         merkleRoot = _merkleRoot;
         nextTokenId = 1;
     }
