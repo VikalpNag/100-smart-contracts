@@ -20,4 +20,11 @@
 //       value: ethers.parseEther("1.0"),
 //     });
 //   });
+
+//   it("Should release correct share to Vikalp", async () => {
+//     const initial = await ethers.provider.getBalance(vikalp.address);
+//     await contract.connect(vikalp).release(vikalp.address);
+//     const finalBalance = await ethers.provider.getBalance(vikalp.address);
+//     expect(finalBalance).to.be.gt(initial);
+//   });
 // });
