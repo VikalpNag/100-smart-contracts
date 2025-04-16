@@ -31,38 +31,46 @@ contract PaymentSplitterContract is Context {
             _addPayee(_payees[i], _shares[i]);
         }
     }
-    receive external payable{}
+    receive() external payable {}
 
-    function release(address payable account)public{
-        require(shares[account]>0,"Account has no shares");
+    function release(address payable account) public {
+        require(shares[account] > 0, "Account has no shares");
 
-         uint256 totalReceived=address(this).balance+totalReleased;
-         uint256 payment=_pendingPayment(account,totalReceived,released[account]);
+        uint256 totalReceived = address(this).balance + totalReleased;
+        uint256 payment = _pendingPayment(
+            account,
+            totalReceived,
+            released[account]
+        );
 
-         require(payment>0,"No payment due");
+        require(payment > 0, "No payment due");
 
-         release[account]+=payment;
-         totalReleased+=payment;
+        released[account] += payment;
+        totalReleased += payment;
 
-         account.sendValue(payment);
-
+        account.sendValue(payment);
     }
 
-    function _pendingPayment(address account,uint256 totalReceived,uint256 alreadyReleased) private view returns(uint256){
-        return(totalReceived*shares[account])/totalShares-alreadyReleased;
+    function _pendingPayment(
+        address account,
+        uint256 totalReceived,
+        uint256 alreadyReleased
+    ) private view returns (uint256) {
+        return
+            (totalReceived * shares[account]) / totalShares - alreadyReleased;
     }
 
-    function _addPayee(address account,uint256 share)private{
-        require(account!=address(0),"Invalid Account");
-        require(share>0,"Share must be greated than 0");
-        require(shares[account]==0,"Already has shares");
+    function _addPayee(address account, uint256 share) private {
+        require(account != address(0), "Invalid Account");
+        require(share > 0, "Share must be greated than 0");
+        require(shares[account] == 0, "Already has shares");
 
         payees.push(account);
-        shares[account]=share;
-        totalShares+=Share;
+        shares[account] = share;
+        totalShares += share;
     }
 
-    function getPayees() external view returns(address[] memory){
+    function getPayees() external view returns (address[] memory) {
         return payees;
     }
 }
