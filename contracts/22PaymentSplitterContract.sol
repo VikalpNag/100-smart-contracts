@@ -47,4 +47,8 @@ contract PaymentSplitterContract is Context {
          account.sendValue(payment);
 
     }
+
+    function _pendingPayment(address account,uint256 totalReceived,uint256 alreadyReleased) private view returns(uint256){
+        return(totalReceived*shares[account])/totalShares-alreadyReleased;
+    }
 }
