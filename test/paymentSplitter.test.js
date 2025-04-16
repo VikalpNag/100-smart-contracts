@@ -34,4 +34,11 @@
 //     const finalBalance = await ethers.provider.getBalance(ruby.address);
 //     expect(finalBalance).to.be.gt(initial);
 //   });
+
+//   it("Should not release funds twice", async () => {
+//     await contract.connect(ruby).release(ruby.address);
+//     await expect(
+//       contract.connect(ruby).release(ruby.address)
+//     ).to.be.revertedWith("No payment due");
+//   });
 // });
