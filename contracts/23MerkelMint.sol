@@ -30,4 +30,8 @@ contract MerkleMint is ERC721Enumerable, Ownable {
         hasClaimed[msg.sender] = true;
         _safeMint(msg.sender, nextTokenId++);
     }
+
+    function setMerkleRoot(bytes32 _newRoot) external onlyOwner {
+        merkleRoot = _newRoot;
+    }
 }
