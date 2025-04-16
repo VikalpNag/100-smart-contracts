@@ -51,4 +51,14 @@ contract PaymentSplitterContract is Context {
     function _pendingPayment(address account,uint256 totalReceived,uint256 alreadyReleased) private view returns(uint256){
         return(totalReceived*shares[account])/totalShares-alreadyReleased;
     }
+
+    function _addPayee(address account,uint256 share)private{
+        require(account!=address(0),"Invalid Account");
+        require(share>0,"Share must be greated than 0");
+        require(shares[account]==0,"Already has shares");
+
+        payees.push(account);
+        shares[account]=share;
+        totalShares+=Share;
+    }
 }
