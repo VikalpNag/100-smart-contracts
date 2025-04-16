@@ -27,4 +27,11 @@
 //     const finalBalance = await ethers.provider.getBalance(vikalp.address);
 //     expect(finalBalance).to.be.gt(initial);
 //   });
+
+//   it("Should release correct share to Ruby", async () => {
+//     const initial = await ethers.provider.getBalance(ruby.address);
+//     await contract.connect(ruby).release(ruby.address);
+//     const finalBalance = await ethers.provider.getBalance(ruby.address);
+//     expect(finalBalance).to.be.gt(initial);
+//   });
 // });
