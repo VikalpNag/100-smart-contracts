@@ -61,4 +61,8 @@ contract PaymentSplitterContract is Context {
         shares[account]=share;
         totalShares+=Share;
     }
+
+    function getPayees() external view returns(address[] memory){
+        return payees;
+    }
 }
