@@ -46,4 +46,20 @@ contract YielFarm is Ownable {
 
         emit Staked(msg.sender, token, amount);
     }
+
+    function withdraw(address token) external {
+        StakeInfo storage stakeData = stakes[msg.sender][token];
+        require(stakeData.amount > 0, "No tokens staked");
+
+        uint256 reward = calculateReward(msg.sender, token) +
+            stakeData.rewardClaimed;
+        uint256 totalAmount = stakeData.amount;
+
+        delete stakes[msg.sender][token];
+
+        IERC20(token).transfer(msg.sender, totalAmount);
+        payable(msg.sender).transfer(reward)
+
+        emit Withdrawn(msg.sender, token, totalAmount, reward);
+    }
 }
