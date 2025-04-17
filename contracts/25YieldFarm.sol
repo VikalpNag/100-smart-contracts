@@ -14,4 +14,12 @@ contract YielFarm is Ownable {
     mapping(address => mapping(address => StakeInfo)) public stakes;
     mapping(address => uint256) public tokenAPY;
     address[] public supportedTokens;
+
+    event Staked(address indexed user, address indexed token, uint256 amount);
+    event Withdrawn(
+        address indexed user,
+        address indexed token,
+        uint256 amount,
+        uint256 reward
+    );
 }
