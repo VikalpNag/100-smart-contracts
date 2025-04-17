@@ -1,5 +1,5 @@
 //SPDX-License-Identifier:MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.28;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -18,7 +18,10 @@ contract Staking is Ownable {
     uint256 public totalStaked;
     mapping(address => uint256) public balanceOf;
 
-    constructor(address _stakingToken, address _rewardToken) {
+    constructor(
+        address _stakingToken,
+        address _rewardToken
+    ) Ownable(msg.sender) {
         stakingToken = IERC20(_stakingToken);
         rewardToken = IERC20(_rewardToken);
     }
