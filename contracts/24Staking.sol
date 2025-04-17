@@ -56,4 +56,12 @@ contract Staking is Ownable {
         balanceOf[msg.sender] += amount;
         stakingToken.transferFrom(msg.sender, address(this), amount);
     }
+
+    function withdraw(uint256 amount) external updateReward(msg.sender) {
+        require(amount > 0, "Cannot Withdraw 0");
+
+        totalStaked -= amount;
+        balanceOf[msg.sender] -= amount;
+        stakingToken.transfer(msg.sender, amount);
+    }
 }
