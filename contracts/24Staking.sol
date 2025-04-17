@@ -72,4 +72,8 @@ contract Staking is Ownable {
             rewardToken.transfer(msg.sender, reward);
         }
     }
+
+    function setRewardRate(uint256 _rate) external onlyOwner {
+        rewardRate = _rate;
+    }
 }
