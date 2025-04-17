@@ -17,4 +17,12 @@ contract TestToken is ERC20Burnable, Ownable, ERC20Capped, ERC20Pausable {
     ) ERC20(name, symbol) ERC20Capped(cap) Ownable(msg.sender) {
         _mint(msg.sender, cap);
     }
+
+    function _update(
+        address from,
+        address to,
+        uint256 value
+    ) internal override(ERC20, ERC20Pausable) {
+        super._update(from, to, value);
+    }
 }
