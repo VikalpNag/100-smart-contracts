@@ -29,4 +29,21 @@ contract YielFarm is Ownable {
         tokenAPY[token] = apy;
         supportedTokens.push(token);
     }
+
+    function stake(address token, uint256 amount) external {
+        require(tokenAPY[token] > 0, "Token not supported");
+        require(amount > 0, "Amount must be greater than 0");
+
+        IERC20(token).transferFrom(msg.sender, address(this), amount);
+        StakeInfo storage stakeData = stakes[msg.sender][token];
+
+        //accumulate previous rewards
+        uint256 pending = calculateReward(msg.sender, token);
+        stakeData.rewardClaimed += pending;
+
+        stakeData.amount += amount;
+        stakeData.startTime = block.timestamp;
+
+        emit Staked(msg.sender, token, amount);
+    }
 }
