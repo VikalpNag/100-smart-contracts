@@ -22,4 +22,11 @@ contract YielFarm is Ownable {
         uint256 amount,
         uint256 reward
     );
+
+    function addSupportedToken(address token, uint256 apy) external onlyOwner {
+        require(tokenAPY[token] == 0, "Token already supported");
+        require(apy > 0, "APY must be positive");
+        tokenAPY[token] = apy;
+        supportedTokens.push(token);
+    }
 }
