@@ -48,4 +48,12 @@ contract Staking is Ownable {
             1e18 +
             rewards[account];
     }
+
+    function stake(uint256 amount) external updateReward(msg.sender) {
+        require(amount > 0, "Cannot stake 0");
+
+        totalStaked += amount;
+        balanceOf[msg.sender] += amount;
+        stakingToken.transferFrom(msg.sender, address(this), amount);
+    }
 }
