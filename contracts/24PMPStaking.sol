@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Capped.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Pausable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract PMPToken is ERC20Burnable, ERC20Capped, ERC20Pausable, Ownable {
+contract TestToken is ERC20Burnable, ERC20Capped, ERC20Pausable, Ownable {
     constructor(
         string memory name,
         string memory symbol,

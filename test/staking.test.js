@@ -1,23 +1,29 @@
-const { expect } = require("chai");
+const { expect, use } = require("chai");
 const { ethers } = require("hardhat");
 
 describe("Staking contract", function () {
   let staking, stakingToken, rewardToken, user, owner;
 
   beforeEach(async () => {
-    [user, owner] = await ethers.getSigners();
+    [owner, user] = await ethers.getSigners();
 
-    const ERC20 = await ethers.getContractFactory("PMPToken");
-    stakingToken = await ERC20.deploy("StakeToken", "STK");
-    rewardToken = await ERC20.deploy("RewardToken", "RWD");
+    const ERC20 = await ethers.getContractFactory("TestToken");
 
+    // Add cap as 1 million tokens (converted to wei)
+    const cap = ethers.parseEther("1000000");
+
+    stakingToken = await ERC20.deploy("StakeToken", "STK", cap);
+    rewardToken = await ERC20.deploy("RewardToken", "RWD", cap);
+
+    // Mint tokens to user and owner
     await stakingToken.mint(user.address, ethers.parseEther("1000"));
     await rewardToken.mint(owner.address, ethers.parseEther("1000"));
 
     const Staking = await ethers.getContractFactory("Staking");
     staking = await Staking.deploy(stakingToken.target, rewardToken.target);
 
-    //fund staking contract with reward tokens
+    // Fund staking contract with reward tokens
+
     await rewardToken.transfer(staking.target, ethers.parseEther("500"));
   });
 
