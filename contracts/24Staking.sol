@@ -17,4 +17,9 @@ contract Staking is Ownable {
 
     uint256 public totalStaked;
     mapping(address => uint256) public balanceOf;
+
+    constructor(address _stakingToken, address _rewardToken) {
+        stakingToken = IERC20(_stakingToken);
+        rewardToken = IERC20(_rewardToken);
+    }
 }
