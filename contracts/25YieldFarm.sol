@@ -58,7 +58,7 @@ contract YielFarm is Ownable {
         delete stakes[msg.sender][token];
 
         IERC20(token).transfer(msg.sender, totalAmount);
-        payable(msg.sender).transfer(reward)
+        payable(msg.sender).transfer(reward);
 
         emit Withdrawn(msg.sender, token, totalAmount, reward);
     }
