@@ -33,4 +33,12 @@ contract Staking is Ownable {
         }
         _;
     }
+
+    function rewardPerToken() public view returns (uint256) {
+        if (totalStaked == 0) return rewardPerTokenStored;
+        return
+            rewardPerTokenStored +
+            (((block.timestamp - lastUpdateTime) * rewardRate * 1e18) /
+                totalStaked);
+    }
 }
