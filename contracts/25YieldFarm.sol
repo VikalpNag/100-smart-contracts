@@ -62,4 +62,18 @@ contract YielFarm is Ownable {
 
         emit Withdrawn(msg.sender, token, totalAmount, reward);
     }
+
+    function calculateReward(
+        address user,
+        address token
+    ) public view returns (uint256) {
+        StakeInfo memory stakeData = stakes[user][token];
+        if (stakeData.amount == 0) return 0;
+
+        uint256 timeElapsed = block.timestamp - stakeData.startTime;
+        uint256 apy = tokenAPY[token];
+
+        // reward = amount * APY% * (timeElapsed / 365 days)
+        return (stakeData.amount * apy * timeElapsed) / (100 * 365 days);
+    }
 }
