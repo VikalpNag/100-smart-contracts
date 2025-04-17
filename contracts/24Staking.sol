@@ -64,4 +64,12 @@ contract Staking is Ownable {
         balanceOf[msg.sender] -= amount;
         stakingToken.transfer(msg.sender, amount);
     }
+
+    function getReward() external updateReward(msg.sender) {
+        uint256 reward = rewards[msg.sender];
+        if (reward > 0) {
+            rewards[msg.sender] = 0;
+            rewardToken.transfer(msg.sender, reward);
+        }
+    }
 }
