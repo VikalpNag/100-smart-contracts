@@ -41,4 +41,11 @@ contract Staking is Ownable {
             (((block.timestamp - lastUpdateTime) * rewardRate * 1e18) /
                 totalStaked);
     }
+    function earned(address account) public view returns (uint256) {
+        return
+            (balanceOf[account] *
+                (rewardPerToken() - userRewardPerTokenPaid[account])) /
+            1e18 +
+            rewards[account];
+    }
 }
