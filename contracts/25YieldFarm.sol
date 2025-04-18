@@ -76,4 +76,7 @@ contract YielFarm is Ownable {
         // reward = amount * APY% * (timeElapsed / 365 days)
         return (stakeData.amount * apy * timeElapsed) / (100 * 365 days);
     }
+
+    //fund this contract with ETH to Pay rewards
+    receive() external payable {}
 }
