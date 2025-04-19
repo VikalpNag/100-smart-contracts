@@ -4,7 +4,9 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-abstract contract YieldFarm is Ownable {
+contract YieldFarm is Ownable {
+    constructor(address initialOwner) Ownable(initialOwner) {}
+
     struct StakeInfo {
         uint256 amount;
         uint256 startTime;
