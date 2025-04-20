@@ -30,4 +30,6 @@ contract TimeLock {
         admin = _admin;
         delay = _delay;
     }
+
+    receive() external payable
 }
