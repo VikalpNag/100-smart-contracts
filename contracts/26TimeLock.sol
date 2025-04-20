@@ -37,4 +37,20 @@ contract TimeLock {
         require(msg.sender == admin, "Not the real admin");
         _;
     }
+
+    function queueTransaction(
+        address target,
+        uint256 value,
+        string memory signature,
+        bytes memory data,
+        uint256 eta
+    ) public onlyAdmin returns (bytes32) {
+        require(eta >= block.timestamp + delay, "ETA must satisfy delay");
+
+        bytes32 txHash = getTxHash(target, value, signature, data, eta);
+        queuedTransactions[txHash] = true;
+
+        emit Queued(txHash, target, value, signature, data, eta);
+        return txHash;
+    }
 }
