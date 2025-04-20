@@ -53,4 +53,17 @@ contract TimeLock {
         emit Queued(txHash, target, value, signature, data, eta);
         return txHash;
     }
+
+    function cancelTransaction(
+        address target,
+        uint256 value,
+        string memory signature,
+        bytes memory data,
+        uint256 eta
+    ) public onlyAdmin {
+        bytes32 txHash = getTxHash(target, value, signature, data, eta);
+        queuedTransactions[txHash] = false;
+
+        emit Cancelled(txHash);
+    }
 }
