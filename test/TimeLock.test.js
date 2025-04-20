@@ -31,4 +31,17 @@
 
 //     expect(await timelock.queuedTransactions(txHash)).to.be.true;
 //   });
+
+//   it("Should cancel a queued transaction", async () => {
+//     const eta = Math.floor(Date.now() / 1000) + MIN_DELAY + 100;
+//     const txData = ethers.AbiCoder.defaultAbiCoder().encode(["uint256"], [42]);
+//     const txHash = await timelock.getTxHash(target.address, 0, "", txData, eta);
+
+//     await timelock.queueTransaction(target.address, 0, "", txData, eta);
+//     await expect(timelock.cancelTransaction(target.address, 0, "", txData, eta))
+//       .to.emit(timelock, "Cancelled")
+//       .withArgs(txHash);
+
+//     expect(await timelock.queuedTransactions(txHash)).to.be.false;
+//   });
 // });
