@@ -31,5 +31,10 @@ contract TimeLock {
         delay = _delay;
     }
 
-    receive() external payable
+    receive() external payable {}
+
+    modifier onlyAdmin() {
+        require(msg.sender == admin, "Not the real admin");
+        _;
+    }
 }
