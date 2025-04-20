@@ -24,4 +24,10 @@ contract TimeLock {
         uint256 eta
     );
     event Cancelled(bytes32 txHash);
+
+    constructor(address _admin, uint256 _delay) {
+        require(_delay >= 1 hours, "Delay must be at least 1 hour");
+        admin = _admin;
+        delay = _delay;
+    }
 }
