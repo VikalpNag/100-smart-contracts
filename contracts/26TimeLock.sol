@@ -66,4 +66,36 @@ contract TimeLock {
 
         emit Cancelled(txHash);
     }
+
+    function executeTransaction(
+        address target,
+        uint256 value,
+        string memory signature,
+        bytes memory data,
+        uint256 eta
+    ) public payable onlyAdmin returns (bytes memory) {
+        bytes32 txHash = getTxHash(target, value, signature, data, eta);
+        require(queuedTransactions[txHash], "tx not queued");
+        require(block.timestamp >= eta, "Too early to execute");
+
+        queuedTransactions[txHash] = false;
+        bytes memory callData;
+
+        if (bytes(signature).length == 0) {
+            callData = data;
+        } else {
+            callData = abi.encodePacked(
+                bytes4(keccak256(bytes(signature))),
+                data
+            );
+        }
+
+        (bool success, bytes memory returnData) = target.call{value: value}(
+            callData
+        );
+        require(success, "Tx failed");
+
+        emit Executed(txHash, target, value, signature, data, eta);
+        return returnData;
+    }
 }
