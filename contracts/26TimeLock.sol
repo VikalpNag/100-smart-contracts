@@ -98,4 +98,14 @@ contract TimeLock {
         emit Executed(txHash, target, value, signature, data, eta);
         return returnData;
     }
+
+    function getTxHash(
+        address target,
+        uint256 value,
+        string memory signature,
+        bytes memory data,
+        uint256 eta
+    ) public pure returns (bytes32) {
+        return keccak256(abi.encode(target, value, signature, data, eta));
+    }
 }
