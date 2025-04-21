@@ -31,4 +31,8 @@ contract DAO {
     mapping(uint256 => Propasal) public propasals;
 
     IERC20 public governanceToken;
+
+    event PropasalCreated(uint256 id, address proposer);
+    event Voted(uint256 id, address voter, VoteType vote);
+    event ProposalExecuted(uint256 id);
 }
