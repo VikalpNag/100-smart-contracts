@@ -39,4 +39,12 @@ contract DAO {
     constructor(address _token) {
         governanceToken = IERC20(_token);
     }
+
+    modifier onlyTokenHolders() {
+        require(
+            governanceToken.balanceOf(msg.sender) > 0,
+            "Must be token holder"
+        );
+        _;
+    }
 }
