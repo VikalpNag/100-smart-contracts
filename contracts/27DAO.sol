@@ -35,4 +35,8 @@ contract DAO {
     event PropasalCreated(uint256 id, address proposer);
     event Voted(uint256 id, address voter, VoteType vote);
     event ProposalExecuted(uint256 id);
+
+    constructor(address _token) {
+        governanceToken = IERC20(_token);
+    }
 }
