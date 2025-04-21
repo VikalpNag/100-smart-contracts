@@ -29,4 +29,6 @@ contract DAO {
     uint256 public quorumVotes = 1 ether; //Example:1 token=1 vote(based on balance)
 
     mapping(uint256 => Propasal) public propasals;
+
+    IERC20 public governanceToken;
 }
