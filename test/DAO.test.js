@@ -25,5 +25,8 @@
 //     //DAO contract
 //     const DAO = await ethers.getContractFactory("DAO");
 //     dao = await DAO.deploy(token.target);
+
+//     await token.connect(voter1).approve(dao.target, ethers.parseEther("10"));
+//     await token.connect(voter2).approve(dao.target, ethers.parseEther("10"));
 //   });
 // });
