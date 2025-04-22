@@ -22,6 +22,6 @@ contract FlashLoanReceiver {
         //Simulate arbitrage or some profit logic
         //For now just approve+repay loan
         uint256 totalRepayment = amount + fee;
-        IERC20(token).approve(pool, totalRepayment);
+        IERC20(token).transfer(pool, totalRepayment);
     }
 }
