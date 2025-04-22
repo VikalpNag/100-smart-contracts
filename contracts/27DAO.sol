@@ -47,4 +47,25 @@ contract DAO {
         );
         _;
     }
+
+    function propose(
+        address target,
+        uint256 value,
+        bytes calldata callData,
+        string memory description
+    ) external onlyTokenHolders returns (uint256) {
+        proposalCount++;
+        Proposal storage p = proposals[proposalCount];
+        p.id = proposalCount;
+        p.proposer = msg.sender;
+        p.description = description;
+        p.target = target;
+        p.value = value;
+        p.callData = callData;
+        p.startTime = block.timestamp;
+        p.endTime = block.timestamp + votingPeriod;
+
+        emit ProposalCreated(proposalCount, msg.sender);
+        return proposalCount;
+    }
 }
