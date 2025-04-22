@@ -11,4 +11,17 @@ contract FlashLoanReceiver {
         pool = _pool;
         owner = msg.sender;
     }
+
+    function executeOperation(
+        address token,
+        uint256 amount,
+        uint256 fee
+    ) external {
+        require(msg.sender == pool, "Caller must be Pool");
+
+        //Simulate arbitrage or some profit logic
+        //For now just approve+repay loan
+        uint256 totalRepayment = amount + fee;
+        IERC20(token).approve(pool, totalRepayment);
+    }
 }
