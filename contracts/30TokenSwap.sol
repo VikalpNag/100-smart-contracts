@@ -9,4 +9,13 @@ contract TokenSwap {
     IERC20 public tokenB;
 
     uint256 public exchangeRate;
+
+    event Swapped(
+        address indexed user,
+        address fromToken,
+        address toToken,
+        uint256 fromAmount,
+        uint256 toAmount
+    );
+    event ExchangeRateUpdated(uint256 newRate);
 }
