@@ -91,4 +91,26 @@ contract DAO {
 
         emit Voted(proposalId, msg.sender, voteType);
     }
+
+    function executeProposal(uint256 proposalId) external {
+        Proposal storage proposal = proposals[proposalId];
+        require(block.timestamp > proposal.endTime, "Voting not ended");
+        require(!proposal.executed, "Already Executed");
+
+        uint256 totalVotes = proposal.forVotes +
+            proposal.againstVotes +
+            proposal.abstainVotes;
+        require(totalVotes >= quorumVotes, "Quorom not reached ");
+        require(
+            proposal.forVotes > proposal.againstVotes,
+            "Proposal not passed"
+        );
+        (bool success, ) = proposal.target.call{value: proposal.value}(
+            proposal.callData
+        );
+        require(success, "Execution Failed");
+
+        proposal.executed = true;
+        emit ProposalExecuted(proposalId);
+    }
 }
