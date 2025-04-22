@@ -17,5 +17,10 @@
 //     );
 //     await token.transfer(voter1.address, ethers.parseEther("10"));
 //     await token.transfer(voter2.address, ethers.parseEther("10"));
+
+//     //Dummy Target
+//     const Dummy = await ethers.getContractFactory("DummyTarget");
+//     dummy = await Dummy.deploy();
+
 //   });
 // });
