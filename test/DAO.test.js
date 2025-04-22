@@ -22,5 +22,8 @@
 //     const Dummy = await ethers.getContractFactory("DummyTarget");
 //     dummy = await Dummy.deploy();
 
+//     //DAO contract
+//     const DAO = await ethers.getContractFactory("DAO");
+//     dao = await DAO.deploy(token.target);
 //   });
 // });
