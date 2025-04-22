@@ -68,4 +68,27 @@ contract DAO {
         emit ProposalCreated(proposalCount, msg.sender);
         return proposalCount;
     }
+
+    function vote(
+        uint256 proposalId,
+        VoteType voteType
+    ) external onlyTokenHolders {
+        Propasal storage propasal = propasals[proposalId];
+        require(block.timestamp >= proposal.startTime, "Voting not started");
+        require(block.timestamp <= proposal.endTime, "Voting ended");
+        require(!propasal.hasVoted[msg.sender], "Already Voted");
+
+        uint256 votes = governanceToken.balanceOf(msg.sender);
+        proposal.hasVoted[msg.sender] = true;
+
+        if (voteType == VoteType.For) {
+            proposal.forVotes += votes;
+        } else if (voteType == VoteType.Against) {
+            proposal.againstVotes += votes;
+        } else {
+            proposal.abstainVotes += votes;
+        }
+
+        emit Voted(proposalId, msg.sender, voteType);
+    }
 }
