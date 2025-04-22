@@ -1,0 +1,21 @@
+// const { expect } = require("chai");
+// const { ethers } = require("hardhat");
+
+// describe("DAO contract", function () {
+//   let token, dao, dummy;
+//   let owner, voter1, voter2;
+
+//   beforeEach(async () => {
+//     [owner, voter1, voter2] = await ethers.getSigners();
+
+//     //Token
+//     const Token = await ethers.getContractFactory("ACustomERC20");
+//     token = await Token.deploy(
+//       "Governance",
+//       "GOV",
+//       ethers.parseEther("100000")
+//     );
+//     await token.transfer(voter1.address, ethers.parseEther("10"));
+//     await token.transfer(voter2.address, ethers.parseEther("10"));
+//   });
+// });
