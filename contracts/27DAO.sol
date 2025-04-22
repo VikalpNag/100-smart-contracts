@@ -113,4 +113,10 @@ contract DAO {
         proposal.executed = true;
         emit ProposalExecuted(proposalId);
     }
+
+    receive() external payable {}
+}
+
+interface IERC20{
+    function balanceOf(address account) external view returns(uint256)
 }
