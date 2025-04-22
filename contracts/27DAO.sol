@@ -8,7 +8,7 @@ contract DAO {
         Abstain
     }
 
-    struct Propasal {
+    struct Proposal {
         uint256 id;
         address proposer;
         string description;
@@ -28,11 +28,11 @@ contract DAO {
     uint256 public votingPeriod = 3 days;
     uint256 public quorumVotes = 1 ether; //Example:1 token=1 vote(based on balance)
 
-    mapping(uint256 => Propasal) public propasals;
+    mapping(uint256 => Proposal) public proposals;
 
     IERC20 public governanceToken;
 
-    event PropasalCreated(uint256 id, address proposer);
+    event ProposalCreated(uint256 id, address proposer);
     event Voted(uint256 id, address voter, VoteType vote);
     event ProposalExecuted(uint256 id);
 
@@ -73,10 +73,10 @@ contract DAO {
         uint256 proposalId,
         VoteType voteType
     ) external onlyTokenHolders {
-        Propasal storage propasal = propasals[proposalId];
+        Proposal storage proposal = proposals[proposalId];
         require(block.timestamp >= proposal.startTime, "Voting not started");
         require(block.timestamp <= proposal.endTime, "Voting ended");
-        require(!propasal.hasVoted[msg.sender], "Already Voted");
+        require(!proposal.hasVoted[msg.sender], "Already Voted");
 
         uint256 votes = governanceToken.balanceOf(msg.sender);
         proposal.hasVoted[msg.sender] = true;
@@ -117,6 +117,6 @@ contract DAO {
     receive() external payable {}
 }
 
-interface IERC20{
-    function balanceOf(address account) external view returns(uint256)
+interface IERC20 {
+    function balanceOf(address account) external view returns (uint256);
 }
