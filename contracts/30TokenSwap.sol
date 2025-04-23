@@ -18,4 +18,11 @@ contract TokenSwap {
         uint256 toAmount
     );
     event ExchangeRateUpdated(uint256 newRate);
+
+    constructor(address _tokenA, address _tokenB, uint256 _exchangeRate) {
+        require(_exchangeRate > 0, "Invalid rate");
+        tokenA = IERC20(_tokenA);
+        tokenB = IERC20(_tokenB);
+        exchangeRate = _exchangeRate;
+    }
 }
