@@ -12,4 +12,7 @@ contract RewardDistributer is Ownable {
 
     //Track if user has claimed
     mapping(address => bool) public hasClaimed;
+
+    event RewardAssigned(address indexed contributer, uint256 amount);
+    event RewardClaimed(address indexed contributer, uint256 amount);
 }
