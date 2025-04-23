@@ -15,4 +15,15 @@ contract InsuranceFund {
 
     mapping(address => uint256) public deposits;
     uint256 public totalPool;
+
+    event Deposited(address indexed user, uint256 amount);
+    event ClaimSubmitted(
+        uint256 claimId,
+        address indexed user,
+        uint256 amount,
+        string reason
+    );
+    event ClaimApproved(uint256 claimId);
+    event ClaimRejected(uint256 claimId);
+    event ClaimPaid(uint256 claimId,address indexed to,uint256 amount)
 }
