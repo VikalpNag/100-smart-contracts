@@ -37,4 +37,23 @@ contract TokenSwap {
         exchangeRate = _newRate;
         emit ExchangeRateUpdated(_newRate);
     }
+
+    //Swap tokenA to tokenB
+    function swapAtoB(uint256 amountA) external {
+        require(amountA > 0, "Amount must be greater than 0");
+        uint256 amountB = amountA * exchangeRate;
+
+        require(
+            tokenA.transferFrom(msg.sender, address(this), amountA),
+            "Transfer A failed"
+        );
+        require(tokenB.transfer(msg.sender, amountB), "Transfer B failed");
+        emit Swapped(
+            msg.sender,
+            address(tokenA),
+            address(tokenB),
+            amountA,
+            amountB,
+        );
+    }
 }
