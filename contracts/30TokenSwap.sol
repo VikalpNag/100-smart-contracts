@@ -68,4 +68,9 @@ contract TokenSwap {
 
         emit Swapped(msg.sender,address(tokenB), address(tokenA),amountB, amountA);
     }
+
+    //owner can withdraw leftOver
+    function withdraw(address token,uint256 amount)external onlyOwner{
+        IERC20(token).transfer(msg.sender, amount);
+    }
 }
