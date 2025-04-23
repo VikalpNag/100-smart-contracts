@@ -2,9 +2,9 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+// import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract RewardDistributer is Ownable {
+contract RewardDistributer {
     IERC20 public rewardToken;
 
     //Mapping for contributer address to reward amount
@@ -24,7 +24,7 @@ contract RewardDistributer is Ownable {
     function assignRewards(
         address[] calldata contributors,
         uint256[] calldata amounts
-    ) external onlyOwner {
+    ) external {
         require(contributors.length == amounts.length, "Length Mismatch");
         for (uint256 i = 0; i < contributors.length; i++) {
             rewards[contributors[i]] += amounts[i];
@@ -47,7 +47,7 @@ contract RewardDistributer is Ownable {
     }
 
     /// @notice Owner can withdraw leftover tokens
-    function withdrawTokens(address to, uint256 amount) external onlyOwner {
+    function withdrawTokens(address to, uint256 amount) external {
         require(rewardToken.transfer(to, amount), "Withdraw failed");
     }
 }
