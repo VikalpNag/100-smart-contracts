@@ -45,4 +45,12 @@
 //       "Already claimed"
 //     );
 //   });
+
+//   it("Should allow owner to withdraw leftover tokens", async () => {
+//     const balanceBefore = await token.balanceOf(owner.address);
+//     await distributer.withdrawTokens(owner.address, ethers.parseEther("500"));
+//     const balanceAfter = await token.balanceOf(owner.address);
+
+//     expect(balanceAfter - balanceBefore).to.equal(ethers.parseEther("500"));
+//   });
 // });
