@@ -15,4 +15,8 @@ contract RewardDistributer is Ownable {
 
     event RewardAssigned(address indexed contributer, uint256 amount);
     event RewardClaimed(address indexed contributer, uint256 amount);
+
+    constructor(address _rewardToken) {
+        rewardToken = IERC20(_rewardToken);
+    }
 }
