@@ -56,4 +56,16 @@ contract TokenSwap {
             amountB,
         );
     }
+
+    //swap tokenB to tokenA
+    function swapBtoA(uint256 amount)external{
+        require(amountB>0,"Amount must be greater than 0");
+        uint256 amountA=amountB/exchangeRate;
+        require(amountA>0,"Insufficient amount");
+
+        require(tokenB.transferFrom(msg.sender, address(this), amountB),"Transfer B failed");
+        require(tokenA.transfer(msg.sender, amountA),"Transfer failed");
+
+        emit Swapped(msg.sender,address(tokenB), address(tokenA),amountB, amountA);
+    }
 }
