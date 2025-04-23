@@ -30,6 +30,7 @@ contract TokenSwap {
         tokenA = IERC20(_tokenA);
         tokenB = IERC20(_tokenB);
         exchangeRate = _exchangeRate;
+        owner = msg.sender;
     }
 
     function setExchangeRate(uint256 _newRate) external onlyOwner {
@@ -53,24 +54,33 @@ contract TokenSwap {
             address(tokenA),
             address(tokenB),
             amountA,
-            amountB,
+            amountB
         );
     }
 
     //swap tokenB to tokenA
-    function swapBtoA(uint256 amount)external{
-        require(amountB>0,"Amount must be greater than 0");
-        uint256 amountA=amountB/exchangeRate;
-        require(amountA>0,"Insufficient amount");
+    function swapBtoA(uint256 amountB) external {
+        require(amountB > 0, "Amount must be greater than 0");
+        uint256 amountA = amountB / exchangeRate;
+        require(amountA > 0, "Insufficient amount");
 
-        require(tokenB.transferFrom(msg.sender, address(this), amountB),"Transfer B failed");
-        require(tokenA.transfer(msg.sender, amountA),"Transfer failed");
+        require(
+            tokenB.transferFrom(msg.sender, address(this), amountB),
+            "Transfer B failed"
+        );
+        require(tokenA.transfer(msg.sender, amountA), "Transfer failed");
 
-        emit Swapped(msg.sender,address(tokenB), address(tokenA),amountB, amountA);
+        emit Swapped(
+            msg.sender,
+            address(tokenB),
+            address(tokenA),
+            amountB,
+            amountA
+        );
     }
 
     //owner can withdraw leftOver
-    function withdraw(address token,uint256 amount)external onlyOwner{
+    function withdraw(address token, uint256 amount) external onlyOwner {
         IERC20(token).transfer(msg.sender, amount);
     }
 }
