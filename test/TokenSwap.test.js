@@ -42,4 +42,10 @@
 //     const tokenABalance = await tokenA.balanceOf(user.address);
 //     expect(tokenABalance).to.equal(ethers.parseEther("1001")); // 2 B => 1 A
 //   });
+
+//   it("Only Owner can update rate", async () => {
+//     await expect(swap.connect(user).setExchangeRate(3)).to.be.reverted;
+//     await swap.setExchangeRate(3);
+//     expect(await swap.exchangeRate()).to.be.equal(3);
+//   });
 // });
