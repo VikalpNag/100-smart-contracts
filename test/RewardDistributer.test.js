@@ -11,9 +11,26 @@
 //     const ERC20 = await ethers.getContractFactory("ACustomERC20");
 //     token = await ERC20.deploy("Reward Token", "RWD", rewardAmount);
 
-//     const Distributer = await ethers.getContractFactory("RewardDistributor");
+//     const Distributer = await ethers.getContractFactory("RewardDistributer");
 //     distributer = await Distributer.deploy(token.target);
 
 //     await token.transfer(distributer.target, rewardAmount);
+//   });
+
+//   it("Should assign and allow claim", async () => {
+//     await distributer.assignRewards(
+//       [vikalp.address, ruby.address],
+//       [ethers.parseEther("100"), ethers.parseEther("200")]
+//     );
+
+//     await distributer.connect(vikalp).claimReward();
+//     expect(await token.balanceOf(vikalp.address)).to.equal(
+//       ethers.parseEther("100")
+//     );
+
+//     await distributer.connect(ruby).claimReward();
+//     expect(await token.balanceOf(ruby.address)).to.be.equal(
+//       ethers.parseEther("200")
+//     );
 //   });
 // });
