@@ -19,4 +19,13 @@ contract RewardDistributer is Ownable {
     constructor(address _rewardToken) {
         rewardToken = IERC20(_rewardToken);
     }
+
+    //Assign rewards to contributers
+    function assignRewards(address[] callData contributors,uint256[] callData amounts)external onlyOwner{
+            require(contributers.length==amounts.length,"Length Mismatch");
+            for(uint256 i=0;i<contributors.length;i++){
+                rewards[contributors[i]]+=amounts[i];
+                emit RewardAssigned(Contributors[i],amounts[i]);
+            }
+    }
 }
