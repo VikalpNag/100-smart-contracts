@@ -45,4 +45,9 @@ contract RewardDistributer is Ownable {
 
         emit RewardClaimed(msg.sender, reward);
     }
+
+    /// @notice Owner can withdraw leftover tokens
+    function withdrawTokens(address to, uint256 amount) external onlyOwner {
+        require(rewardToken.transfer(to, amount), "Withdraw failed");
+    }
 }
