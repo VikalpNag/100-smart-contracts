@@ -18,6 +18,7 @@
 
 //     //Fund Swap with tokenB
 //     await tokenB.transfer(swap.target, ethers.parseEther("10000"));
+//     await tokenA.transfer(swap.target, ethers.parseEther("10000"));
 
 //     //Transfer tokenA to user
 //     await tokenA.transfer(user.address, ethers.parseEther("1000"));
@@ -29,5 +30,16 @@
 //     await swap.connect(user).swapAtoB(ethers.parseEther("1"));
 //     const tokenBBalance = await tokenB.balanceOf(user.address);
 //     expect(tokenBBalance).to.be.equal(ethers.parseEther("2"));
+//   });
+
+//   it("Should swap B to A correctly", async () => {
+//     // Give user some tokenB
+//     await tokenB.transfer(user.address, ethers.parseEther("2"));
+//     await tokenB.connect(user).approve(swap.target, ethers.parseEther("2"));
+
+//     await swap.connect(user).swapBtoA(ethers.parseEther("2"));
+
+//     const tokenABalance = await tokenA.balanceOf(user.address);
+//     expect(tokenABalance).to.equal(ethers.parseEther("1001")); // 2 B => 1 A
 //   });
 // });
