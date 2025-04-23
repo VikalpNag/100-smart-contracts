@@ -24,4 +24,10 @@
 //     await tokenA.connect(user).approve(swap.target, ethers.parseEther("1000"));
 //     await tokenB.connect(user).approve(swap.target, ethers.parseEther("1000"));
 //   });
+
+//   it("It should Swap A to B correctly", async () => {
+//     await swap.connect(user).swapAtoB(ethers.parseEther("1"));
+//     const tokenBBalance = await tokenB.balanceOf(user.address);
+//     expect(tokenBBalance).to.be.equal(ethers.parseEther("2"));
+//   });
 // });
