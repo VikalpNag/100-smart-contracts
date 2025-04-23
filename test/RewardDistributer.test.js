@@ -33,4 +33,16 @@
 //       ethers.parseEther("200")
 //     );
 //   });
+
+//   it("Should Prevent double claim", async () => {
+//     await distributer.assignRewards(
+//       [vikalp.address],
+//       [ethers.parseEther("50")]
+//     );
+//     await distributer.connect(vikalp).claimReward();
+
+//     await expect(distributer.connect(vikalp).claimReward()).to.be.revertedWith(
+//       "Already claimed"
+//     );
+//   });
 // });
