@@ -21,11 +21,28 @@ contract RewardDistributer is Ownable {
     }
 
     //Assign rewards to contributers
-    function assignRewards(address[] callData contributors,uint256[] callData amounts)external onlyOwner{
-            require(contributers.length==amounts.length,"Length Mismatch");
-            for(uint256 i=0;i<contributors.length;i++){
-                rewards[contributors[i]]+=amounts[i];
-                emit RewardAssigned(Contributors[i],amounts[i]);
-            }
+    function assignRewards(
+        address[] calldata contributors,
+        uint256[] calldata amounts
+    ) external onlyOwner {
+        require(contributors.length == amounts.length, "Length Mismatch");
+        for (uint256 i = 0; i < contributors.length; i++) {
+            rewards[contributors[i]] += amounts[i];
+            emit RewardAssigned(contributors[i], amounts[i]);
+        }
+    }
+
+    //Contributor claims their rewards
+    function claimReward() external {
+        require(!hasClaimed[msg.sender], "Already claimed");
+        uint256 reward = rewards[msg.sender];
+        require(reward > 0, "No reward");
+
+        hasClaimed[msg.sender] = true;
+        rewards[msg.sender] = 0;
+
+        require(rewardToken.transfer(msg.sender, reward), "Transfer failed");
+
+        emit RewardClaimed(msg.sender, reward);
     }
 }
