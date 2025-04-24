@@ -58,4 +58,13 @@ contract InsuranceFund {
         claim.approved = true;
         emit ClaimApproved(claimId);
     }
+
+    //Owner rejects the claim
+    function rejectClaim(uint256 claimId) external {
+        Claim storage claim = claims[claimId];
+        require(!claim.approved, "Already approved");
+
+        delete claims[claimId];
+        emit ClaimRejected(claimId);
+    }
 }
