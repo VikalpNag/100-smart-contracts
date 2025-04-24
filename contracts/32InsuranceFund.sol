@@ -67,4 +67,21 @@ contract InsuranceFund {
         delete claims[claimId];
         emit ClaimRejected(claimId);
     }
+
+    //After approval , pay the claim
+    function payClaim(uint256 claimId) external {
+        Claim storage claim = claims[claimId];
+        require(claim.approved, "Not approved");
+        require(!claim.paid, "Already Paid");
+        require(
+            address(this).balance >= claim.amount,
+            "Insufficient Pool balance"
+        );
+
+        claim.paid = true;
+        totalPool -= claim.amount;
+
+        payable(claim.claimant).transfer(claim.amount);
+        emit ClaimPaid(claimId, claim.claimant, claim.amount);
+    }
 }
