@@ -49,4 +49,13 @@ contract InsuranceFund {
         emit ClaimSubmitted(claimCount, msg.sender, amount, reason);
         claimCount++;
     }
+
+    //Owner reviews and approve the claim
+    function approveClaim(uint256 claimId) external {
+        Claim storage claim = claims[claimId];
+        require(!claim.approved, "Already Approved");
+
+        claim.approved = true;
+        emit ClaimApproved(claimId);
+    }
 }
