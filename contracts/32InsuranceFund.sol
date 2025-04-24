@@ -86,7 +86,5 @@ contract InsuranceFund {
     }
 
     //Allow contract to receive ETH
-    receive() external payable {
-        deposit();
-    }
+    receive() external payable {}
 }
