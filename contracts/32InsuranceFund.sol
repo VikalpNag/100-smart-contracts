@@ -34,4 +34,19 @@ contract InsuranceFund {
         totalPool += msg.value;
         emit Deposited(msg.sender, msg.value);
     }
+
+    //Submit a claim with a reason
+    function submitClaim(uint256 amount, string memory reason) external {
+        require(amount > 0, "Invalid amount");
+
+        claims[claimCount] = Claim({
+            claimant: msg.sender,
+            amount: amount,
+            reason: reason,
+            approved: false,
+            paid: false
+        });
+        emit ClaimSubmitted(claimCount, msg.sender, amount, reason);
+        claimCount++;
+    }
 }
