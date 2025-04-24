@@ -10,4 +10,10 @@
 //     const InsuranceFund = await ethers.getContractFactory("InsuranceFund");
 //     fund = await InsuranceFund.deploy();
 //   });
+
+//   it("Should accept deposits", async () => {
+//     await fund.connect(user1).deposit({ value: ethers.parseEther("1") });
+//     const contractBalance = await ethers.provider.getBalance(fund.target);
+//     expect(contractBalance).to.be.equal(ethers.parseEther("1"));
+//   });
 // });
