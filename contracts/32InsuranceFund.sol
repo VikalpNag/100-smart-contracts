@@ -25,5 +25,13 @@ contract InsuranceFund {
     );
     event ClaimApproved(uint256 claimId);
     event ClaimRejected(uint256 claimId);
-    event ClaimPaid(uint256 claimId,address indexed to,uint256 amount)
+    event ClaimPaid(uint256 claimId, address indexed to, uint256 amount);
+
+    //users deposit ETH into the insurance pool
+    function deposit() external payable {
+        require(msg.value > 0, "Must send ETH");
+        deposits[msg.sender] += msg.value;
+        totalPool += msg.value;
+        emit Deposited(msg.sender, msg.value);
+    }
 }
