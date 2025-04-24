@@ -84,4 +84,9 @@ contract InsuranceFund {
         payable(claim.claimant).transfer(claim.amount);
         emit ClaimPaid(claimId, claim.claimant, claim.amount);
     }
+
+    //Allow contract to receive ETH
+    receive() external payable {
+        deposit();
+    }
 }
