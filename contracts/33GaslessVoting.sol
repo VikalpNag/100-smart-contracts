@@ -26,4 +26,8 @@ contract GaslessVoting is EIP712 {
     mapping(uint256 => mapping(address => bool)) public hasVoted;
     mapping(uint256 => uint256) public yesVotes;
     mapping(uint256 => uint256) public noVotes;
+
+    event VoteSubmitted(address voter, uint256 proposalId, bool support);
+
+    constructor() EIP712(NAME, VERSION) {}
 }
