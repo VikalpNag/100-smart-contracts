@@ -30,4 +30,41 @@ contract GaslessVoting is EIP712 {
     event VoteSubmitted(address voter, uint256 proposalId, bool support);
 
     constructor() EIP712(NAME, VERSION) {}
+
+    function submitVote(
+        address voter,
+        uint256 proposalId,
+        bool support,
+        uint256 nonce,
+        bytes calldata signature
+    ) external {
+        require(nonce == nonces[voter], "Invalid nonce");
+        require(!hasVoted[proposalId][voter], "Already voted");
+
+        bytes32 structHash = keccak256(
+            abi.encode(VOTE_TYPEHASH, voter, proposalId, support, nonce)
+        );
+
+        bytes32 digest = _hashTypedDataV4(structHash);
+        address signer = ECDSA.recover(digest, signature);
+        require(signer == voter, "Invalid signature");
+
+        // Mark vote
+        hasVoted[proposalId][voter] = true;
+        nonces[voter]++;
+
+        if (support) {
+            yesVotes[proposalId]++;
+        } else {
+            noVotes[proposalId]++;
+        }
+
+        emit VoteSubmitted(voter, proposalId, support);
+    }
+
+    function getVotes(
+        uint256 proposalId
+    ) external view returns (uint256 yes, uint256 no) {
+        return (yesVotes[proposalId], noVotes[proposalId]);
+    }
 }
