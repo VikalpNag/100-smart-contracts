@@ -6,4 +6,9 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract SoulBound is ERC721, Ownable {
     uint256 private _tokenIdCounter;
+
+    constructor(
+        string memory name,
+        string memory symbol
+    ) ERC721(name, symbol) Ownable(msg.sender) {}
 }
