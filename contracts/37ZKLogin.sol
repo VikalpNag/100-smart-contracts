@@ -17,4 +17,14 @@ contract ZKLogin is Ownable {
     function setMerkleRoot(bytes32 _newRoot) external onlyOwner {
         merkleRoot = _newRoot;
     }
+
+    function verify(bytes32[] calldata proof) external {
+        require(!verifiedUsers[msg.sender], "Already Verified");
+
+        bytes32 leaf = keccak256(abi.encodePacked(msg.sender));
+        require(MerkleProof.verify(proof, merkleRoot, leaf), "Invalid Proof");
+
+        verifiedUsers[msg.sender] = true;
+        emit Verified(msg.sender);
+    }
 }
