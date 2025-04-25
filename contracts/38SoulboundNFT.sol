@@ -26,7 +26,14 @@ contract SoulBound is ERC721, Ownable {
         revert("SoulBound Tokens are non-transferable");
     }
 
-    function approve(address to, uint256 tokenId)public pure override{
+    function approve(address to, uint256 tokenId) public pure override {
         revert("SoulBound Token cannot be approved");
-    };
+    }
+
+    function setApprovalForAll(
+        address operator,
+        bool approved
+    ) public pure override {
+        revert("SoulBound tokens cannot be approved");
+    }
 }
