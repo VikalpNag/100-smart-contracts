@@ -11,4 +11,9 @@ contract SoulBound is ERC721, Ownable {
         string memory name,
         string memory symbol
     ) ERC721(name, symbol) Ownable(msg.sender) {}
+
+    function mint(address to) external onlyOwner {
+        _tokenIdCounter++;
+        _mint(to, _tokenIdCounter);
+    }
 }
