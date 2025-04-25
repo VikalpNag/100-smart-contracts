@@ -18,22 +18,22 @@ contract SoulBound is ERC721, Ownable {
     }
 
     //Disable all transfer:transfer , safeTransfer
-    function _transfer(
+    function transferFrom(
         address from,
         address to,
         uint256 tokenId
-    ) internal pure override {
+    ) public virtual override {
         revert("SoulBound Tokens are non-transferable");
     }
 
-    function approve(address to, uint256 tokenId) public pure override {
+    function approve(address to, uint256 tokenId) public virtual override {
         revert("SoulBound Token cannot be approved");
     }
 
     function setApprovalForAll(
         address operator,
         bool approved
-    ) public pure override {
+    ) public virtual override {
         revert("SoulBound tokens cannot be approved");
     }
 }
