@@ -13,4 +13,8 @@ contract ZKLogin is Ownable {
     constructor(bytes32 _merkleRoot) {
         merkleRoot = _merkleRoot;
     }
+
+    function setMerkleRoot(bytes32 _newRoot) external onlyOwner {
+        merkleRoot = _newRoot;
+    }
 }
