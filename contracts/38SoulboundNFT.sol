@@ -34,6 +34,6 @@ contract SoulBoundNFT is ERC721, Ownable {
         address operator,
         bool approved
     ) public virtual override {
-        revert("SoulBound tokens cannot be approved");
+        revert("SoulBound Token cannot be approved");
     }
 }
