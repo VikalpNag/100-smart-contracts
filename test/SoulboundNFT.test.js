@@ -29,4 +29,11 @@
 //       soulbound.connect(user).approve(owner.address, 1)
 //     ).to.be.revertedWith("SoulBound Token cannot be approved");
 //   });
+
+//   it("Should prevent approval", async () => {
+//     await soulbound.mint(user.address);
+//     await expect(
+//       soulbound.connect(user).approve(owner.address, 1)
+//     ).to.be.revertedWith("SoulBound Token cannot be approved");
+//   });
 // });
