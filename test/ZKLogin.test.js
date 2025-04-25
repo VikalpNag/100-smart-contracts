@@ -30,4 +30,10 @@
 //     const result = await zkLogin.connect(user1).accessRestrictedArea();
 //     expect(result).to.be.equal("Welcome to secret zone!");
 //   });
+
+//   it("Should reject unverified user from restricted area", async () => {
+//     await expect(
+//       zkLogin.connect(user2).accessRestrictedArea()
+//     ).to.be.revertedWith("Not verified");
+//   });
 // });
