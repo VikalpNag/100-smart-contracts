@@ -22,4 +22,11 @@
 //       soulbound.connect(user).mint(user.address)
 //     ).to.be.revertedWithCustomError(soulbound, "OwnableUnauthorizedAccount");
 //   });
+
+//   it("Should prevent transfer of Tokens", async () => {
+//     await soulbound.mint(user.address);
+//     await expect(
+//       soulbound.connect(user).approve(owner.address, 1)
+//     ).to.be.revertedWith("SoulBound Token cannot be approved");
+//   });
 // });
