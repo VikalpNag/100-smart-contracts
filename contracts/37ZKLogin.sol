@@ -10,7 +10,7 @@ contract ZKLogin is Ownable {
 
     event Verified(address indexed user);
 
-    constructor(bytes32 _merkleRoot) {
+    constructor(bytes32 _merkleRoot) Ownable(msg.sender) {
         merkleRoot = _merkleRoot;
     }
 
