@@ -32,4 +32,14 @@ contract ZKLogin is Ownable {
         require(verifiedUsers[msg.sender], "Not verified");
         _;
     }
+
+    //Restricted function
+    function accessRestrictedArea()
+        external
+        view
+        onlyVerified
+        returns (string memory)
+    {
+        return "Welcome to secret zone!";
+    }
 }
