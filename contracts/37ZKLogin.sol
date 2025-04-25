@@ -6,4 +6,7 @@ import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
 contract ZKLogin is Ownable {
     bytes public merkleRoot;
+    mapping(address => bool) public verifiedUsers;
+
+    event Verified(address indexed user);
 }
