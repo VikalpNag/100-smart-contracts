@@ -11,4 +11,13 @@
 //     soulbound = await SouldBound.deploy("Soulbound", "SBT");
 //     await soulbound.waitForDeployment();
 //   });
+
+//   it("Should allow owner to mint", async () => {
+//     await soulbound.mint(user.address);
+//     expect(await soulbound.ownerOf(1)).to.be.equal(user.address);
+//   });
+
+//   it("Should prevent non-owner from minting",async()=>{
+
+//   });
 // });
