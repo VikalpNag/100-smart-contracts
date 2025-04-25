@@ -36,4 +36,11 @@
 //       zkLogin.connect(user2).accessRestrictedArea()
 //     ).to.be.revertedWith("Not verified");
 //   });
+
+//   it("Should reject invalid proof", async () => {
+//     const fakeProof = tree.getHexProof(keccak256(owner.address)); //owner not part of tree
+//     await expect(zkLogin.connect(owner).verify(fakeProof)).to.be.revertedWith(
+//       "Invalid Proof"
+//     );
+//   });
 // });
