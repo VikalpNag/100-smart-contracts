@@ -19,6 +19,6 @@
     "@openzeppelin/hardhat-upgrades": "^3.9.0",
     "alchemy-sdk": "^3.5.6",
     "keccak256": "^1.0.6",
-    "merkletreejs": "^0.5.1"
+    "merkletreejs": "^0.5.2"
   }
 }
