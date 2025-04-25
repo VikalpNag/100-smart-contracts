@@ -27,4 +27,9 @@ contract ZKLogin is Ownable {
         verifiedUsers[msg.sender] = true;
         emit Verified(msg.sender);
     }
+
+    modifier onlyVerified() {
+        require(verifiedUsers[msg.sender], "Not verified");
+        _;
+    }
 }
