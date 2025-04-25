@@ -17,7 +17,9 @@
 //     expect(await soulbound.ownerOf(1)).to.be.equal(user.address);
 //   });
 
-//   it("Should prevent non-owner from minting",async()=>{
-
+//   it("Should prevent non-owner from minting", async () => {
+//     await expect(
+//       soulbound.connect(user).mint(user.address)
+//     ).to.be.revertedWithCustomError(soulbound, "OwnableUnauthorizedAccount");
 //   });
 // });
