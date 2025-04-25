@@ -21,4 +21,13 @@
 //     zkLogin = await ZKLogin.deploy(root);
 //     await zkLogin.waitForDeployment();
 //   });
+
+//   it("Should allow valid user to verify and access restricted area", async () => {
+//     const proof = tree.getHexProof(keccak256(user1.address));
+//     await zkLogin.connect(user1).verify(proof);
+//     expect(await zkLogin.verifiedUsers(user1.address)).to.be.true;
+
+//     const result = await zkLogin.connect(user1).accessRestrictedArea();
+//     expect(result).to.be.equal("Welcome to secret zone!");
+//   });
 // });
