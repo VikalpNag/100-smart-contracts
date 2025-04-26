@@ -8,4 +8,10 @@ contract ChainlinkKeeper is KeeperCompatible {
     uint256 public lastTimeStamp;
     uint256 public interval;
     uint256 public counter;
+
+    constructor(uint256 _interval) {
+        interval = _interval;
+        lastTimeStamp = block.timestamp;
+        counter = 0;
+    }
 }
