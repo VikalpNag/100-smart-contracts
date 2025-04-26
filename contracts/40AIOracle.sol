@@ -28,4 +28,8 @@ contract AIOracle {
         require(msg.sender == owner, "Only owner can call");
         _;
     }
+
+    constructor() {
+        owner = msg.sender;
+    }
 }
