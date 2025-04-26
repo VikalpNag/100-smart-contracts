@@ -66,9 +66,9 @@ contract AIOracle {
         );
 
         if (decision.choice == AIChoice.Approve) {
-            return "Action: Approved ✅";
+            return "Action: Approved";
         } else if (decision.choice == AIChoice.Reject) {
-            return "Action: Rejected ❌";
+            return "Action: Rejected";
         } else {
             return "Action: Unknown";
         }
