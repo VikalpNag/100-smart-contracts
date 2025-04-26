@@ -23,4 +23,13 @@
 //     const [upkeepNeeded] = await keeperContract.checkUpkeep("0x");
 //     expect(upkeepNeeded).to.be.equal(false);
 //   });
+
+//   it("Should need upkeep after interval", async () => {
+//     // Simulate time passage using evm_increaseTime
+//     await ethers.provider.send("evm_increaseTime", [interval + 1]);
+//     await ethers.provider.send("evm_mine");
+
+//     const [upkeepNeeded] = await keeperContract.checkUpkeep("0x");
+//     expect(upkeepNeeded).to.equal(true);
+//   });
 // });
