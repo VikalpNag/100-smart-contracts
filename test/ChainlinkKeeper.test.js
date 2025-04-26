@@ -18,4 +18,9 @@
 //   it("Initial state should be correct", async () => {
 //     expect(await keeperContract.counter()).to.equal(0);
 //   });
+
+//   it("Should not need upkeep immediately", async () => {
+//     const [upkeepNeeded] = await keeperContract.checkUpkeep("0x");
+//     expect(upkeepNeeded).to.be.equal(false);
+//   });
 // });
