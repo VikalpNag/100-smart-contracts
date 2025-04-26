@@ -28,4 +28,21 @@
 //     expect(decision.status).to.equal(0); //pending
 //     expect(decision.choice).to.equal(0); //unknown
 //   });
+
+//   it("should fulfill a decision ", async () => {
+//     //Request
+//     const txRequest = await aiOracle.requestDecision();
+//     const receiptRequest = await txRequest.wait();
+//     const decisionId = receiptRequest.logs.find(
+//       (log) => log.fragment.name === "DecisionRequested"
+//     ).args.decisionId;
+
+//     // Fulfill
+//     const txFulfill = await aiOracle.fulfillDecision(decisionId, 1); // 1 = Approve
+//     await txFulfill.wait();
+
+//     const decision = await aiOracle.decisions(decisionId);
+//     expect(decision.status).to.equal(1); // Fulfilled
+//     expect(decision.choice).to.equal(1); // Approve
+//   });
 // });
