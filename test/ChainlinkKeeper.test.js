@@ -32,4 +32,13 @@
 //     const [upkeepNeeded] = await keeperContract.checkUpkeep("0x");
 //     expect(upkeepNeeded).to.equal(true);
 //   });
+
+//   it("Should perform upkeep and increment counter", async () => {
+//     await ethers.provider.send("evm_increaseTime", [interval + 1]);
+//     await ethers.provider.send("evm_mine");
+
+//     await keeperContract.performUpkeep("0x");
+
+//     expect(await keeperContract.counter()).to.equal(1);
+//   });
 // });
