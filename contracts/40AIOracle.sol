@@ -32,4 +32,14 @@ contract AIOracle {
     constructor() {
         owner = msg.sender;
     }
+
+    function requestDecision() external returns (uint256) {
+        decisionCounter++;
+        decisions[decisionCounter] = Decision({
+            status: DecisionStatus.Pending,
+            choice: AIChoice.Unknown
+        });
+        emit DecisionRequested(decisionCounter);
+        return decisionCounter;
+    }
 }
