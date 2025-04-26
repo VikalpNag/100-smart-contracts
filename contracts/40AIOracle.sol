@@ -42,4 +42,17 @@ contract AIOracle {
         emit DecisionRequested(decisionCounter);
         return decisionCounter;
     }
+
+    function fulfillDecision(
+        uint256 _decisionId,
+        AIChoice _choice
+    ) external onlyOwner {
+        Decision storage decision = decisions[_decisionId];
+        require(decision.status == DecisionStatus.Pending, "Already fulfilled");
+
+        decision.status = DecisionStatus.Fulfilled;
+        decision.choice = _choice;
+
+        emit DecisionFulfilled(_decisionId, _choice);
+    }
 }
