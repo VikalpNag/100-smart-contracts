@@ -20,4 +20,7 @@ contract AIOracle {
     address public owner;
     mapping(uint256 => Decision) public decisions;
     uint256 public decisionCounter;
+
+    event DecisionRequested(uint256 decisionId);
+    event DecisionFulfilled(uint256 decisionId, AIChoice choice);
 }
