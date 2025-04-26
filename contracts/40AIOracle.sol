@@ -23,4 +23,9 @@ contract AIOracle {
 
     event DecisionRequested(uint256 decisionId);
     event DecisionFulfilled(uint256 decisionId, AIChoice choice);
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only owner can call");
+        _;
+    }
 }
