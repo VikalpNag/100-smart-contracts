@@ -75,4 +75,18 @@
 //       aiOracle.connect(otherUser).fulfillDecision(decisionId, 1)
 //     ).to.be.revertedWith("Only owner can call");
 //   });
+
+//   it("should not fulfill an already fulfilled decision", async function () {
+//     const txRequest = await aiOracle.requestDecision();
+//     const receiptRequest = await txRequest.wait();
+//     const decisionId = receiptRequest.logs.find(
+//       (log) => log.fragment.name === "DecisionRequested"
+//     ).args.decisionId;
+
+//     await aiOracle.fulfillDecision(decisionId, 1); // Approve
+
+//     await expect(
+//       aiOracle.fulfillDecision(decisionId, 2) // Try to change to Reject
+//     ).to.be.revertedWith("Already fulfilled");
+//   });
 // });
