@@ -55,4 +55,22 @@ contract AIOracle {
 
         emit DecisionFulfilled(_decisionId, _choice);
     }
+
+    function actBasedOnDecision(
+        uint256 _decisionId
+    ) external view returns (string memory) {
+        Decision storage decision = decisions[_decisionId];
+        require(
+            decision.status == DecisionStatus.Fulfilled,
+            "Decision Not fulfilled yet"
+        );
+
+        if (decision.choice == AIChoice.Approve) {
+            return "Action: Approved ✅";
+        } else if (decision.choice == AIChoice.Reject) {
+            return "Action: Rejected ❌";
+        } else {
+            return "Action: Unknown";
+        }
+    }
 }
