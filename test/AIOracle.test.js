@@ -45,4 +45,20 @@
 //     expect(decision.status).to.equal(1); // Fulfilled
 //     expect(decision.choice).to.equal(1); // Approve
 //   });
+
+//   it("should return correct action based on decision", async function () {
+//     // Request
+//     const txRequest = await aiOracle.requestDecision();
+//     const receiptRequest = await txRequest.wait();
+//     const decisionId = receiptRequest.logs.find(
+//       (log) => log.fragment.name === "DecisionRequested"
+//     ).args.decisionId;
+
+//     // Fulfill with Approve
+//     const txFulfill = await aiOracle.fulfillDecision(decisionId, 1); // Approve
+//     await txFulfill.wait();
+
+//     const action = await aiOracle.actBasedOnDecision(decisionId);
+//     expect(action).to.equal("Action: Approved");
+//   });
 // });
