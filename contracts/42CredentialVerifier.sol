@@ -6,4 +6,9 @@ contract CredentialVerifier {
 
     event CredintialStored(address indexed user, bytes32 credentialHash);
     event CredentialVerified(address indexed user);
+
+    function storeCredential(bytes32 _credentialHash) external {
+        credentials[msg.sender] = _credentialHash;
+        emit CredentialStored(msg.sender, _credentialHash);
+    }
 }
