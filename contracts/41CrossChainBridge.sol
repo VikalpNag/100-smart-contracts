@@ -35,4 +35,17 @@ contract CrossChainBridge is Ownable {
         );
         emit BridgeRequest(msg.sender, amount, targetChainId, targetAddress);
     }
+
+    //Called on Destination chain (Chain B) by Admin/Multisig only
+    function mintTokens(address user, uint256 amount) external onlyOwner {
+        require(user != address(0), "Invalid user address");
+        require(amount > 0, "Amount must be greater than 0");
+
+        // Mint new tokens to user
+        // Here we assume the Token has a mint function (ERC20Mintable).
+        // If not, you'd need a custom ERC20 that allows minting.
+        MintableERC20(address(token)).mint(user, amount);
+
+        emit TokensMinted(user, amount);
+    }
 }
