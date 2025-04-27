@@ -58,4 +58,21 @@
 //       .verifyUserCredential(user.address, credential);
 //     expect(isValid).to.be.true;
 //   });
+
+//   it("Should reject verification from non-admin user for other user's credentials", async () => {
+//     const credential = "Bachelor of Science 2024";
+//     const credentialHash = ethers.utils.keccak256(
+//       ethers.utils.toUtf8Bytes(credential)
+//     );
+
+//     // Store credential for user
+//     await credentialVerifier.connect(user).storeCredential(credentialHash);
+
+//     // Try to verify user credential from another user (non-admin)
+//     await expect(
+//       credentialVerifier
+//         .connect(user)
+//         .verifyUserCredential(owner.address, credential)
+//     ).to.be.revertedWith("Only admin can verify other users' credentials");
+//   });
 // });
