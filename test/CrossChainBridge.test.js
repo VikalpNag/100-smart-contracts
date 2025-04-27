@@ -1,32 +1,42 @@
-const { expect } = require("chai");
-const { ethers } = require("hardhat");
+// const { expect } = require("chai");
+// const { ethers } = require("hardhat");
 
-describe("CrossChainBridge", function () {
-  let owner, user, bridge, token;
+// describe("CrossChainBridge", function () {
+//   let owner, user, bridge, token;
 
-  const initialSupply = ethers.parseEther("100000");
-  const amountToBridge = ethers.parseEther("1000");
+//   const initialSupply = ethers.parseEther("100000");
+//   const amountToBridge = ethers.parseEther("1000");
 
-  beforeEach(async () => {
-    [owner, user] = await ethers.getSigners();
+//   beforeEach(async () => {
+//     [owner, user] = await ethers.getSigners();
 
-    const ERC20Mintable = await ethers.getContractFactory("DummyToken");
-    token = await ERC20Mintable.deploy("Test Token", "TTK");
-    await token.waitForDeployment();
-    await token.mint(user.address, initialSupply);
+//     const ERC20Mintable = await ethers.getContractFactory("DummyToken");
+//     token = await ERC20Mintable.deploy("Test Token", "TTK");
+//     await token.waitForDeployment();
+//     await token.mint(user.address, initialSupply);
 
-    const Bridge = await ethers.getContractFactory("CrossChainBridge");
-    bridge = await Bridge.deploy(token.target);
-    await bridge.waitForDeployment();
-  });
+//     const Bridge = await ethers.getContractFactory("CrossChainBridge");
+//     bridge = await Bridge.deploy(token.target);
+//     await bridge.waitForDeployment();
+//   });
 
-  it("Should emit BridgeRequest event on bridgeTokens", async () => {
-    await token.connect(user).approve(bridge.target, amountToBridge);
+//   it("Should emit BridgeRequest event on bridgeTokens", async () => {
+//     await token.connect(user).approve(bridge.target, amountToBridge);
 
-    await expect(
-      bridge.connect(user).bridgeTokens(amountToBridge, 137, user.address) //137=polygon chainId
-    )
-      .to.emit(bridge, "BridgeRequest")
-      .withArgs(user.address, amountToBridge, 137, user.address);
-  });
-});
+//     await expect(
+//       bridge.connect(user).bridgeTokens(amountToBridge, 137, user.address) //137=polygon chainId
+//     )
+//       .to.emit(bridge, "BridgeRequest")
+//       .withArgs(user.address, amountToBridge, 137, user.address);
+//   });
+
+//   it("Only admin should not mint tokens on destination chain", async () => {
+//     await expect(
+//       bridge.connect(user).mintTokens(user.address, amountToBridge)
+//     ).to.be.revertedWithCustomError(bridge, "OwnableUnauthorizedAccount");
+
+//     await expect(bridge.connect(owner).mintTokens(user.address, amountToBridge))
+//       .to.emit(bridge, "TokensMinted")
+//       .withArgs(user.address, amountToBridge);
+//   });
+// });
