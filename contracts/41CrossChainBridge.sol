@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract CrossChainBridge is Ownable {
     IERC20 public token;
@@ -15,7 +16,7 @@ contract CrossChainBridge is Ownable {
     );
     event TokensMinted(address indexed user, uint256 amount);
 
-    constructor(address tokenAddress) {
+    constructor(address tokenAddress) Ownable(msg.sender) {
         token = IERC20(tokenAddress);
     }
 
@@ -44,7 +45,7 @@ contract CrossChainBridge is Ownable {
         // Mint new tokens to user
         // Here we assume the Token has a mint function (ERC20Mintable).
         // If not, you'd need a custom ERC20 that allows minting.
-        MintableERC20(address(token)).mint(user, amount);
+        DummyToken(address(token)).mint(user, amount);
 
         emit TokensMinted(user, amount);
     }
@@ -56,6 +57,18 @@ contract CrossChainBridge is Ownable {
     }
 }
 
-interface MintableERC20 is ERC20 {
-    function mint(address to, uint256 amount) external;
+// interface MintableERC20 is IERC20 {
+//     function mint(address to, uint256 amount) external;
+// }
+contract DummyToken is ERC20 {
+    address public admin;
+
+    constructor(string memory name, string memory symbol) ERC20(name, symbol) {
+        admin = msg.sender;
+    }
+
+    function mint(address to, uint256 amount) external {
+        require(msg.sender == admin, "Only admin can mint");
+        _mint(to, amount);
+    }
 }
