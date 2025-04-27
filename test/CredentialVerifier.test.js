@@ -42,4 +42,20 @@
 //     );
 //     expect(isValid).to.be.true;
 //   });
+
+//   it("Should allow an admin to verify any user's credential", async () => {
+//     const credential = "Bachelor of Science 2024";
+//     const credentialHash = ethers.utils.keccak256(
+//       ethers.utils.toUtf8Bytes(credential)
+//     );
+
+//     // Store credential for user
+//     await credentialVerifier.connect(user).storeCredential(credentialHash);
+
+//     // Verify user credential from admin's perspective
+//     const isValid = await credentialVerifier
+//       .connect(owner)
+//       .verifyUserCredential(user.address, credential);
+//     expect(isValid).to.be.true;
+//   });
 // });
