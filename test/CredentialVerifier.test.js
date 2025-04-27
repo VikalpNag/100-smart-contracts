@@ -14,4 +14,32 @@
 //     credentialVerifier = await CredentialVerifier.deploy();
 //     await credentialVerifier.waitForDeployment();
 //   });
+
+//   it("Should store a valid credential hash", async () => {
+//     const credential = "Bachelor of Technology 2025";
+//     const credentialHash = ethers.utils.keccak256(
+//       ethers.utils.toUtf8Bytes(credential)
+//     );
+
+//     await credentialVerifier.connect(user).storeCredential(credentialHash);
+
+//     const storedHash = await credentialVerifier.credentials(user.address);
+//     expect(storedHash).to.equal(credentialHash);
+//   });
+//   it("Should verify a correct credential", async () => {
+//     const credential = "Bachelor of Science 2024";
+//     const credentialHash = ethers.utils.keccak256(
+//       ethers.utils.toUtf8Bytes(credential)
+//     );
+
+//     // Store credential for user
+//     await credentialVerifier.connect(user).storeCredential(credentialHash);
+
+//     // Verify that the credential matches
+//     const isValid = await credentialVerifier.verifyCredential(
+//       user.address,
+//       credential
+//     );
+//     expect(isValid).to.be.true;
+//   });
 // });
