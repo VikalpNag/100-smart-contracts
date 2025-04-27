@@ -6,4 +6,12 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract CrossChainBridge is Ownable {
     IERC20 public token;
+
+    event BridgeRequest(
+        address indexed user,
+        uint256 amount,
+        uint256 targetChild,
+        address targetAddress
+    );
+    event TokensMinted(address indexed user, uint256 amount);
 }
