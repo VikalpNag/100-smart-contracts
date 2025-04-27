@@ -18,4 +18,12 @@ contract CredentialVerifier {
         bytes32 providedHash = keccak256(abi.encodePacked(_credential));
         return providedHash == credentials[msg.sender];
     }
+
+    function verifyUserCredentials(
+        address user,
+        string calldata _credential
+    ) external view returns (bool) {
+        bytes32 providedHash = keccak256(abi.encodePacked(_credential));
+        return providedHash == credentials[user];
+    }
 }
