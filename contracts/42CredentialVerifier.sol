@@ -11,4 +11,11 @@ contract CredentialVerifier {
         credentials[msg.sender] = _credentialHash;
         emit CredentialStored(msg.sender, _credentialHash);
     }
+
+    function verifyCredential(
+        string calldata _credential
+    ) external view returns (bool) {
+        bytes32 providedHash = keccak256(abi.encodePacked(_credential));
+        return providedHash == credentials[msg.sender];
+    }
 }
