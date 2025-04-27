@@ -14,4 +14,8 @@ contract CrossChainBridge is Ownable {
         address targetAddress
     );
     event TokensMinted(address indexed user, uint256 amount);
+
+    constructor(address tokenAddress) {
+        token = IERC20(tokenAddress);
+    }
 }
