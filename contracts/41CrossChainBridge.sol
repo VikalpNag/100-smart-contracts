@@ -48,4 +48,10 @@ contract CrossChainBridge is Ownable {
 
         emit TokensMinted(user, amount);
     }
+
+    //In case of Emergency,Admin can withdraw tokens accidentally sent
+    function emergencyWithdraw(address to, uint256 amount) external onlyOwner {
+        require(to != address(0), "Invalid address");
+        token.transfer(to, amount);
+    }
 }
