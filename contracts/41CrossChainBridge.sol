@@ -60,6 +60,7 @@ contract CrossChainBridge is Ownable {
 // interface MintableERC20 is IERC20 {
 //     function mint(address to, uint256 amount) external;
 // }
+
 contract DummyToken is ERC20 {
     address public admin;
 
