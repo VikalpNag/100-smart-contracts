@@ -25,4 +25,28 @@
 //     await gasTank.connect(owner).setRelayer(relayer.address, true);
 //     expect(await gasTank.relayers(relayer.address)).to.equal(true);
 //   });
+
+//   it("Relayer can spend user's gas", async () => {
+//     await gasTank.connect(owner).setRelayer(relayer.address, true);
+
+//     await gasTank
+//       .connect(user2)
+//       .depositForUser(user2.address, { value: ethers.parseEther("2") });
+
+//     const relayerBalanceBefore = await ethers.provider.getBalance(
+//       relayer.address
+//     );
+
+//     await gasTank
+//       .connect(relayer)
+//       .spendGas(user2.address, ethers.parseEther("1"));
+
+//     const userBalanceAfter = await gasTank.userBalance(user2.address);
+//     expect(userBalanceAfter).to.equal(ethers.parseEther("1")); // 2 - 1 = 1
+
+//     const relayerBalanceAfter = await ethers.provider.getBalance(
+//       relayer.address
+//     );
+//     expect(relayerBalanceAfter).to.be.gt(relayerBalanceBefore);
+//   });
 // });
