@@ -40,4 +40,9 @@ contract AutoRaffle is Ownable(msg.sender) {
         // Reset the raffle
         delete participants;
     }
+
+    // View current participants
+    function getParticipants() external view returns (address[] memory) {
+        return participants;
+    }
 }
