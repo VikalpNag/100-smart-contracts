@@ -7,4 +7,9 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract IdentityNFT is ERC721URIStorage, Ownable {
     uint256 public nextTokenId;
     mapping(address => bool) public verifiers;
+
+    constructor(
+        string memory _name,
+        string memory _symbol
+    ) ERC721(_name, _symbol) Ownable(msg.sender) {}
 }
