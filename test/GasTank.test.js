@@ -20,4 +20,9 @@
 //     const balance = await gasTank.userBalance(user1.address);
 //     expect(balance).to.equal(ethers.parseEther("1"));
 //   });
+
+//   it("Allows owner to add a relayer", async () => {
+//     await gasTank.connect(owner).setRelayer(relayer.address, true);
+//     expect(await gasTank.relayers(relayer.address)).to.equal(true);
+//   });
 // });
