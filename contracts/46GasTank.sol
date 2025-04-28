@@ -14,4 +14,9 @@ contract GasTank is Ownable(msg.sender) {
         address indexed relayer
     );
     event RelayerUpdated(address indexed relayer, bool allowed);
+
+    modifier onlyRelayer() {
+        require(relayers[msg.sender], "Not an authorized relayer");
+        _;
+    }
 }
