@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
-contract ProofOfHumanity is Ownable {
+contract ProofOfHumanity is Ownable(msg.sender) {
     mapping(address => bool) public isRegistered;
     uint256 public totalHumans;
 
