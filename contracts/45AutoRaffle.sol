@@ -10,4 +10,9 @@ contract AutoRaffle is Ownable(msg.sender) {
 
     event Entered(address indexed participant);
     event WinnerPicked(address indexed winner, uint256 amount);
+
+    modifier onlyWhenOpen() {
+        require(raffleOpen, "Raffle is closed");
+        _;
+    }
 }
