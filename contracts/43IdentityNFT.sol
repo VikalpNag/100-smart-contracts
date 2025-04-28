@@ -12,4 +12,9 @@ contract IdentityNFT is ERC721URIStorage, Ownable {
         string memory _name,
         string memory _symbol
     ) ERC721(_name, _symbol) Ownable(msg.sender) {}
+
+    modifier onlyVerifier() {
+        require(verifiers[msg.sender], "Not authorized verifier");
+        _;
+    }
 }
