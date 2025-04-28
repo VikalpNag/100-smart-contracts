@@ -30,4 +30,13 @@
 //     expect(await proofOfHumanity.isRegistered(user2.address)).to.equal(true);
 //     expect(await proofOfHumanity.totalHumans()).to.equal(1);
 //   });
+
+//   it("Non-owner cannot call adminRegister", async () => {
+//     await expect(
+//       proofOfHumanity.connect(user1).adminRegister(user2.address)
+//     ).to.be.revertedWithCustomError(
+//       proofOfHumanity,
+//       "OwnableUnauthorizedAccount"
+//     );
+//   });
 // });
