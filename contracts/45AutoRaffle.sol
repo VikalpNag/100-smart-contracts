@@ -7,4 +7,7 @@ contract AutoRaffle is Ownable(msg.sender) {
     address[] public participants;
     bool public raffleOpen = true;
     address public recentWinner;
+
+    event Entered(address indexed participant);
+    event WinnerPicked(address indexed winner, uint256 amount);
 }
