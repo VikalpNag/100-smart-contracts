@@ -21,4 +21,10 @@
 //     expect(participants[0]).to.equal(user1.address);
 //     expect(participants[1]).to.equal(user2.address);
 //   });
+
+//   it("Only owner can pick winner", async () => {
+//     await expect(
+//       raffle.connect(user1).pickWinner(42)
+//     ).to.be.revertedWithCustomError(raffle, "OwnableUnauthorizedAccount");
+//   });
 // });
