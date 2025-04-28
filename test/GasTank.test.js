@@ -49,4 +49,10 @@
 //     );
 //     expect(relayerBalanceAfter).to.be.gt(relayerBalanceBefore);
 //   });
+
+//   it("Non-relayers cannot spend gas", async () => {
+//     await expect(
+//       gasTank.connect(user1).spendGas(user2.address, ethers.parseEther("1"))
+//     ).to.be.revertedWith("Not an authorized relayer");
+//   });
 // });
