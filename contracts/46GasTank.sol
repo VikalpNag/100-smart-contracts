@@ -26,4 +26,15 @@ contract GasTank is Ownable(msg.sender) {
         balances[user] += msg.value;
         emit Deposited(user, msg.value);
     }
+
+    // Relayer spends user's gas balance
+    function spendGas(address user, uint256 amount) external onlyRelayer {
+        require(balances[user] >= amount, "Insufficient balance");
+
+        balances[user] -= amount;
+        (bool success, ) = msg.sender.call{value: amount}("");
+        require(success, "Transfer to relayer failed");
+
+        emit GasSpent(user, amount, msg.sender);
+    }
 }
