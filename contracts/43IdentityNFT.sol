@@ -29,4 +29,15 @@ contract IdentityNFT is ERC721URIStorage, Ownable {
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, uri);
     }
+
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 tokenId
+    ) internal override {
+        if (from != address(0) && to != address(0)) {
+            revert("Soulbound: Transfer not allowed");
+        }
+        super._beforeTokenTransfer(from, to, tokenId);
+    }
 }
