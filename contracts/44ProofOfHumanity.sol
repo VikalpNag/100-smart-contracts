@@ -16,4 +16,13 @@ contract ProofOfHumanity is Ownable {
 
         emit Registered(msg.sender);
     }
+
+    function adminRegister(address human) external onlyOwner {
+        require(!isRegistered[human], "Already Registered");
+
+        isRegistered[human] = true;
+        totalHumans++;
+
+        emit Registered(human);
+    }
 }
