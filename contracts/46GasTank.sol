@@ -37,4 +37,10 @@ contract GasTank is Ownable(msg.sender) {
 
         emit GasSpent(user, amount, msg.sender);
     }
+
+    // Admin: Add or remove relayer
+    function setRelayer(address relayer, bool allowed) external onlyOwner {
+        relayers[relayer] = allowed;
+        emit RelayerUpdated(relayer, allowed);
+    }
 }
