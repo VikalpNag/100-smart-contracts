@@ -15,4 +15,11 @@ contract AutoRaffle is Ownable(msg.sender) {
         require(raffleOpen, "Raffle is closed");
         _;
     }
+
+    function enterRaffle() external payable onlyWhenOpen {
+        require(msg.value > 0, "Must send ETH to enter");
+        participants.push(msg.sender);
+
+        emit Entered(msg.sender);
+    }
 }
