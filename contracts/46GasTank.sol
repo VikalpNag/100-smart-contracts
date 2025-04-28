@@ -19,4 +19,11 @@ contract GasTank is Ownable(msg.sender) {
         require(relayers[msg.sender], "Not an authorized relayer");
         _;
     }
+
+    // Deposit ETH for a user (can be self or others)
+    function depositForUser(address user) external payable {
+        require(msg.value > 0, "Must send ETH");
+        balances[user] += msg.value;
+        emit Deposited(user, msg.value);
+    }
 }
