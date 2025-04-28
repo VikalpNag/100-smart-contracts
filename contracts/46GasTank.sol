@@ -43,4 +43,9 @@ contract GasTank is Ownable(msg.sender) {
         relayers[relayer] = allowed;
         emit RelayerUpdated(relayer, allowed);
     }
+
+    // View user's balance
+    function userBalance(address user) external view returns (uint256) {
+        return balances[user];
+    }
 }
