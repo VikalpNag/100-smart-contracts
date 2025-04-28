@@ -7,4 +7,13 @@ contract ProofOfHumanity is Ownable {
     uint256 public totalHumans;
 
     event Registered(address indexed human);
+
+    function register() external {
+        require(!isRegistered[msg.sender], "Already Registered");
+
+        isRegistered[msg.sender] = true;
+        totalHumans++;
+
+        emit Registered(msg.sender);
+    }
 }
