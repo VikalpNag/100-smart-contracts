@@ -40,4 +40,13 @@ contract DAOProposal {
         require(_id < proposalCount, "Proposal does not exist");
         _;
     }
+
+    function createProposal(string memory _description) external {
+        Proposal storage p = proposals[proposalCount];
+        p.id = proposalCount;
+        p.description = _description;
+        p.deadline = block.timestamp + votingPeriod;
+        emit ProposalCreated(proposalCount, _description, p.deadline);
+        proposalCount++;
+    }
 }
