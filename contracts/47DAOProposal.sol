@@ -70,4 +70,12 @@ contract DAOProposal {
         emit ProposalExecuted(_id);
         // You can add more logic here, like triggering another contract
     }
+
+    // Getter for votes since mappings are not directly accessible
+    function hasVoted(
+        uint256 _id,
+        address _voter
+    ) external view returns (bool) {
+        return proposals[_id].voted[_voter];
+    }
 }
