@@ -26,4 +26,9 @@ contract DAOProposal {
         owner = msg.sender;
         quorum = _quorum;
     }
+
+    modifier onlyBeforeDeadline(uint256 _id) {
+        require(block.timestamp < proposals[_id].deadline, "Voting ended");
+        _;
+    }
 }
