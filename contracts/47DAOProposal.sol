@@ -35,4 +35,9 @@ contract DAOProposal {
         require(block.timestamp >= proposals[_id].deadline, "Voting ongoing");
         _;
     }
+
+    modifier proposalExists(uint256 _id) {
+        require(_id < proposalCount, "Proposal does not exist");
+        _;
+    }
 }
