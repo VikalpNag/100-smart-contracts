@@ -15,4 +15,10 @@ contract DAOProposal {
         bool executed;
         mapping(address => bool) voted;
     }
+
+    mapping(uint256 => Proposal) public proposals;
+
+    event ProposalCreated(uint256 id, string description, uint256 deadline);
+    event Voted(uint256 id, address voter);
+    event ProposalExecuted(uint256 id);
 }
