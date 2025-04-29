@@ -59,4 +59,15 @@ contract DAOProposal {
         p.voteCount++;
         emit Voted(_id, msg.sender);
     }
+
+    function executeProposal(
+        uint256 _id
+    ) external proposalExists(_id) onlyAfterDeadline(_id) {
+        Proposal storage p = proposals[_id];
+        require(!p.executed, "Already executed");
+        require(p.voteCount >= quorum, "Not enough votes");
+        p.executed = true;
+        emit ProposalExecuted(_id);
+        // You can add more logic here, like triggering another contract
+    }
 }
