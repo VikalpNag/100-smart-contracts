@@ -6,4 +6,13 @@ contract DAOProposal {
     uint256 public proposalCount;
     uint256 public quorum; //Minimum votes to pass a proposal
     uint256 public votingPeriod = 3 days;
+
+    struct Proposal {
+        uint256 id;
+        string description;
+        uint256 voteCount;
+        uint256 deadline;
+        bool executed;
+        mapping(address => bool) voted;
+    }
 }
