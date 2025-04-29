@@ -49,4 +49,14 @@ contract DAOProposal {
         emit ProposalCreated(proposalCount, _description, p.deadline);
         proposalCount++;
     }
+
+    function vote(
+        uint256 _id
+    ) external proposalExists(_id) onlyBeforeDeadline(_id) {
+        Proposal storage p = proposals[_id];
+        require(!p.voted[msg.sender], "Already voted");
+        p.voted[msg.sender] = true;
+        p.voteCount++;
+        emit Voted(_id, msg.sender);
+    }
 }
