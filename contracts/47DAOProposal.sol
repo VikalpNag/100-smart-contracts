@@ -21,4 +21,9 @@ contract DAOProposal {
     event ProposalCreated(uint256 id, string description, uint256 deadline);
     event Voted(uint256 id, address voter);
     event ProposalExecuted(uint256 id);
+
+    constructor(uint256 _quorum) {
+        owner = msg.sender;
+        quorum = _quorum;
+    }
 }
